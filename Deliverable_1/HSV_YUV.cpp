@@ -1,8 +1,8 @@
-/*! \file DisplayVideo.cpp
+/*! \file HSV_YUV.cpp
  *	\brief Transforming the image into different color spaces 
  *	       
  *	
- *	File DisplayVideoRGB.cpp is a program to create a simple video display
+ *	
  *	
  *  
  *	Press ESC to exit.

@@ -1,8 +1,8 @@
-/*! \file DisplayVideo.cpp
+/*! \file WaterMark.cpp
  *	\brief Adding a Water Mark to an image
  *	       
  *	
- *	File DisplayVideoRGB.cpp is a program to create a simple video display
+ *	
  *	
  *  
  *	Press ESC to exit.
@@ -26,10 +26,10 @@ int main( int argc, char** argv )
 	
 	Mat image;
 	
-	// Loads an image
+	/// Loads an image
 	image = imread(argv[1], IMREAD_COLOR ); 
 
-	// Check if image is loaded fine
+	/// Check if image is loaded fine
 	if( image.empty()) 
 	{
 		printf("Error opening image\n");

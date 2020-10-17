@@ -72,16 +72,20 @@ $(function() {
 Functions</h2></td></tr>
 <tr class="memitem:ae441d850c4d137d6f18094069a7bfa02"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#ae441d850c4d137d6f18094069a7bfa02">cmake_minimum_required</a> (VERSION 2.8) project(Example) find_package(OpenCV REQUIRED) include_directories($</td></tr>
 <tr class="separator:ae441d850c4d137d6f18094069a7bfa02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac390dc5a5c6a3002316628ff4131cdd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#aac390dc5a5c6a3002316628ff4131cdd">add_executable</a> (Display DisplayVideoRGB.cpp) add_executable(WaterMark WaterMark.cpp) add_executable(HSV_YUV HSV_YUV.cpp) add_executable(Histogram Histogram.cpp) add_executable(GrayScale GrayScale.cpp) add_executable(GausAndBlur GausAndBlur.cpp) <a class="el" href="CMakeLists_8txt.html#aa835e2ef0d56028711604a6c6cce73b1">target_link_libraries</a>(Display $</td></tr>
-<tr class="separator:aac390dc5a5c6a3002316628ff4131cdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee59bbf4a39d251656f546ee81fe6541"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#aee59bbf4a39d251656f546ee81fe6541">add_executable</a> (Display DisplayVideoRGB.cpp) add_executable(WaterMark WaterMark.cpp) add_executable(HSV_YUV HSV_YUV.cpp) add_executable(Histogram Histogram.cpp) add_executable(GrayScale GrayScale.cpp) add_executable(GausAndBlur GausAndBlur.cpp) add_executable(Gradients Gradients.cpp) add_executable(Canny Canny.cpp) add_executable(Segmentation Segmentation.cpp) <a class="el" href="CMakeLists_8txt.html#abe978749b8ee0b7db31c31c1fffc579b">target_link_libraries</a>(Display $</td></tr>
+<tr class="separator:aee59bbf4a39d251656f546ee81fe6541"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5718652a88d06dc5811ff8c3b0fadf02"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a5718652a88d06dc5811ff8c3b0fadf02">target_link_libraries</a> (WaterMark ${OpenCV_LIBS}) target_link_libraries(HSV_YUV $</td></tr>
 <tr class="separator:a5718652a88d06dc5811ff8c3b0fadf02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa835e2ef0d56028711604a6c6cce73b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#aa835e2ef0d56028711604a6c6cce73b1">target_link_libraries</a> (Histogram ${OpenCV_LIBS}) target_link_libraries(GrayScale $</td></tr>
 <tr class="separator:aa835e2ef0d56028711604a6c6cce73b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31b8289df74efa2c82101046aa85ee9d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a31b8289df74efa2c82101046aa85ee9d">target_link_libraries</a> (GausAndBlur ${OpenCV_LIBS}) target_link_libraries(Gradients $</td></tr>
+<tr class="separator:a31b8289df74efa2c82101046aa85ee9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe978749b8ee0b7db31c31c1fffc579b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#abe978749b8ee0b7db31c31c1fffc579b">target_link_libraries</a> (Canny ${OpenCV_LIBS}) target_link_libraries(Segmentation $</td></tr>
+<tr class="separator:abe978749b8ee0b7db31c31c1fffc579b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="aac390dc5a5c6a3002316628ff4131cdd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac390dc5a5c6a3002316628ff4131cdd">&#9670;&nbsp;</a></span>add_executable()</h2>
+<a id="aee59bbf4a39d251656f546ee81fe6541"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee59bbf4a39d251656f546ee81fe6541">&#9670;&nbsp;</a></span>add_executable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -116,8 +120,44 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="abe978749b8ee0b7db31c31c1fffc579b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe978749b8ee0b7db31c31c1fffc579b">&#9670;&nbsp;</a></span>target_link_libraries() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">target_link_libraries </td>
+          <td>(</td>
+          <td class="paramtype">Canny ${OpenCV_LIBS}&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a31b8289df74efa2c82101046aa85ee9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31b8289df74efa2c82101046aa85ee9d">&#9670;&nbsp;</a></span>target_link_libraries() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">target_link_libraries </td>
+          <td>(</td>
+          <td class="paramtype">GausAndBlur ${OpenCV_LIBS}&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aa835e2ef0d56028711604a6c6cce73b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa835e2ef0d56028711604a6c6cce73b1">&#9670;&nbsp;</a></span>target_link_libraries() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa835e2ef0d56028711604a6c6cce73b1">&#9670;&nbsp;</a></span>target_link_libraries() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -135,7 +175,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5718652a88d06dc5811ff8c3b0fadf02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5718652a88d06dc5811ff8c3b0fadf02">&#9670;&nbsp;</a></span>target_link_libraries() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5718652a88d06dc5811ff8c3b0fadf02">&#9670;&nbsp;</a></span>target_link_libraries() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

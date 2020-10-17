@@ -1,4 +1,4 @@
-/*! \file DisplayVideo.cpp
+/*! \file Gradients.cpp
  *	\brief Getting the gradients
  *	       
  *	

@@ -1,8 +1,8 @@
-/** \file DisplayVideo.cpp
+/** \file DisplayVideoRGB.cpp
  *	\brief Creating a simple video display 
  *	       
  *	
- *	File DisplayVideoRGB.cpp is a program to create a simple video display
+ *	
  *	
  *  
  *	Press ESC to exit.

@@ -1,4 +1,4 @@
-/*! \file DisplayVideo.cpp
+/*! \file GrayScale.cpp
  *	\brief Transforming the image into Gray scale and apply histogram equalization
  *	
  *	

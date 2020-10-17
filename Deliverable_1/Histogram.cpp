@@ -1,10 +1,9 @@
-/*! \file main.cpp
- *	\brief Split a RGB image into individual channels (Red, Blue, Green) 
- *	       and add a random color border to the image.
+/*! \file Histogram.cpp
+ *	\brief Histogram of an image
+ *	       
  *	
- *	File main.cpp is a program to split a rgb image into 3 distinct channels (Red, Green and Blue).
- *	This program also add a random color board to the image.
- *  Press any key to move on to the next feature. 
+ *	
+ *  
  *	Press ESC to exit.
  *
  */

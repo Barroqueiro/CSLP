@@ -1,8 +1,8 @@
-/*! \file DisplayVideo.cpp
+/*! \file GausAndBlur.cpp
  *	\brief Applying diferent blur filters
  *	       
  *	
- *	File DisplayVideoRGB.cpp is a program to create a simple video display
+ *	
  *	
  *  
  *	Press ESC to exit.
