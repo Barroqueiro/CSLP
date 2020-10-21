@@ -39,44 +39,50 @@ int main( int argc, char** argv )
 		cout << "-l : Laplacian Derivatives " << endl;
 		return 0;
 	}
-	/// Loads an image
-	image = imread(argv[1], IMREAD_COLOR ); 
-
-	/// Check if image is loaded fine
-	if( image.empty()) 
-	{
-		printf("Error opening image\n");
-		return -1;
-	}
-	string flag = argv[2];
-	cvtColor(image,image,COLOR_RGB2GRAY,0);
-	if( flag.compare("-s") == 0)
-	{
-		Sobel(image, imageSx, CV_8U, 1, 0, 3, 1, 0, BORDER_DEFAULT);
-		Sobel(image, imageSy, CV_8U, 0, 1, 3, 1, 0, BORDER_DEFAULT);
-		imshow("Sobel x ", imageSx);
-		imshow("Sobel y ", imageSy);
-	}
-	else if (flag.compare("-sc") == 0)
-	{
-		Scharr(image, imageSCx, CV_8U, 1, 0, 1, 0, BORDER_DEFAULT);
-		Scharr(image, imageSCy, CV_8U, 0, 1, 1, 0, BORDER_DEFAULT);
-		imshow("Scharr x ", imageSCx);
-		imshow("Scharr y ", imageSCy);
-	}
-	else if(flag.compare("-l") == 0)
-	{
-		Laplacian(image, imageL, CV_8U, 1, 1, 0, BORDER_DEFAULT);
-		imshow("Laplacian ", imageL);
-	}
-	else
-	{
-		cout << "Invalid Flag" << endl;
+	/// Opening the video
+	VideoCapture cap(argv[1]);
+	
+	if (!cap.isOpened()){
+		cout << "Error opening the file" << endl;
 	}
 	
-	if (waitKey() == 27) {
-        	return -1;
-   	}	
+	/// Displaying frame by frame
+	while (1){
+		
+		cap >> image;
+
+		
+		string flag = argv[2];
+		cvtColor(image,image,COLOR_RGB2GRAY,0);
+		if( flag.compare("-s") == 0)
+		{
+			Sobel(image, imageSx, CV_8U, 1, 0, 3, 1, 0, BORDER_DEFAULT);
+			Sobel(image, imageSy, CV_8U, 0, 1, 3, 1, 0, BORDER_DEFAULT);
+			imshow("Sobel x ", imageSx);
+			imshow("Sobel y ", imageSy);
+		}
+		else if (flag.compare("-sc") == 0)
+		{
+			Scharr(image, imageSCx, CV_8U, 1, 0, 1, 0, BORDER_DEFAULT);
+			Scharr(image, imageSCy, CV_8U, 0, 1, 1, 0, BORDER_DEFAULT);
+			imshow("Scharr x ", imageSCx);
+			imshow("Scharr y ", imageSCy);
+		}
+		else if(flag.compare("-l") == 0)
+		{
+			Laplacian(image, imageL, CV_8U, 1, 1, 0, BORDER_DEFAULT);
+			imshow("Laplacian ", imageL);
+		}
+		else
+		{
+			cout << "Invalid Flag" << endl;
+		}
+		
+		char c = (char) waitKey(25);
+		if( c == 27 ){
+			break;
+		}
+	   }
 
 	destroyAllWindows();
 	return 0;

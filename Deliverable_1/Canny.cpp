@@ -27,29 +27,33 @@ int main( int argc, char** argv )
 	Mat image;
 	Mat imageCan;
 	
-	/// Loads an image
-	image = imread(argv[1], IMREAD_COLOR ); 
-
-	/// Check if image is loaded fine
-	if( image.empty()) 
-	{
-		printf("Error opening image\n");
-		return -1;
+	/// Opening the video
+	VideoCapture cap(argv[1]);
+	
+	if (!cap.isOpened()){
+		cout << "Error opening the file" << endl;
 	}
 	
-	/// Changing color space to gray
-	int i = stoi(argv[2]);
-	cvtColor(image,imageCan,COLOR_RGB2GRAY,0);
-	
-	/// Applying the canny function
-	Canny(image,imageCan,i,i*2,3,false);
+	/// Displaying frame by frame
+	while (1){
+		
+		cap >> image;
+		
+		/// Changing color space to gray
+		int i = stoi(argv[2]);
+		cvtColor(image,imageCan,COLOR_RGB2GRAY,0);
+		
+		/// Applying the canny function
+		Canny(image,imageCan,i,i*2,3,false);
 
-	/// Displaying the result
-	imshow("Canny ", imageCan);
-	
-	if (waitKey() == 27) {
-        	return -1;
-   	}	
+		/// Displaying the result
+		imshow("Canny ", imageCan);
+			
+	   	char c = (char) waitKey(25);
+		if( c == 27 ){
+			break;
+		}
+	  }
 
 	destroyAllWindows();
 	return 0;

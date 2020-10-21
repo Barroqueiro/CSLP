@@ -39,46 +39,50 @@ int main( int argc, char** argv )
 		cout << "-b : Bilateral blur " << endl;
 		return 0;
 	}
-	/// Loads an image
-	image = imread(argv[1], IMREAD_COLOR ); 
-
-	/// Check if image is loaded fine
-	if( image.empty()) 
-	{
-		printf("Error opening image\n");
-		return -1;
-	}
-	string flag = argv[2];
-	int i = stoi(argv[3]);
-	if( flag.compare("-a") == 0)
-	{
-		blur(image, imageAVG, Size(i,i));
-		imshow("Average BLur", imageAVG);
-	}
-	else if (flag.compare("-g") == 0)
-	{
-		GaussianBlur(image, imageGAUS, Size(i,i), 0);
-		imshow("Gaussian BLur", imageGAUS);
-	}
-	else if(flag.compare("-m") == 0)
-	{
-		medianBlur(image, imageMED,i);
-		imshow("Median BLur", imageMED);
-	}
-	else if(flag.compare("-b") == 0)
-	{
-		bilateralFilter(image, imageBI,i,i*2,i/2);
-		imshow("Bilateral BLur", imageBI);
-	}
-	else
-	{
-		cout << "Invalid Flag" << endl;
+	/// Opening the video
+	VideoCapture cap(argv[1]);
+	
+	if (!cap.isOpened()){
+		cout << "Error opening the file" << endl;
 	}
 	
-	if (waitKey() == 27) {
-        	return -1;
-   	}	
-
+	/// Displaying frame by frame
+	while (1){		
+		cap >> image;
+		
+		string flag = argv[2];
+		int i = stoi(argv[3]);
+		if( flag.compare("-a") == 0)
+		{
+			blur(image, imageAVG, Size(i,i));
+			imshow("Average BLur", imageAVG);
+		}
+		else if (flag.compare("-g") == 0)
+		{
+			GaussianBlur(image, imageGAUS, Size(i,i), 0);
+			imshow("Gaussian BLur", imageGAUS);
+		}
+		else if(flag.compare("-m") == 0)
+		{
+			medianBlur(image, imageMED,i);
+			imshow("Median BLur", imageMED);
+		}
+		else if(flag.compare("-b") == 0)
+		{
+			bilateralFilter(image, imageBI,i,i*2,i/2);
+			imshow("Bilateral BLur", imageBI);
+		}
+		else
+		{
+			cout << "Invalid Flag" << endl;
+		}
+		
+		char c = (char) waitKey(25);
+		if( c == 27 ){
+			break;
+		}
+	}
+	
 	destroyAllWindows();
 	return 0;
 }

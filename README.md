@@ -4,4 +4,4 @@
 # Deliverable nº 1
 
 ## Running the programs:
-./[name_of_program] [Arguments]
+ ./[name_of_program] [Arguments]

@@ -79,7 +79,6 @@ int main( int argc, char** argv )
 	
     	Mat kernel1 = Mat::ones(3, 3, CV_8U);
     	dilate(dist, dist, kernel1);
-    	imshow("Peaks", dist);
     	
     	/// Making the background markers
     	Mat dist_8u;
@@ -97,7 +96,7 @@ int main( int argc, char** argv )
     	/// Draw the background marker
     	circle(markers, Point(5,5), 3, Scalar(255), -1);
     	
-    	/// PUsing the watershed algorithm
+    	/// Using the watershed algorithm
     	watershed(imgResult, markers);
     	Mat mark;
     	markers.convertTo(mark, CV_8U);

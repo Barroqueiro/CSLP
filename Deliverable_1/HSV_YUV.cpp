@@ -28,30 +28,33 @@ int main( int argc, char** argv )
 	Mat imageHSV;
 	Mat imageYUV;
 	
-	/// Loads an image
-	image = imread(argv[1], IMREAD_COLOR ); 
-
-	/// Check if image is loaded fine
-	if( image.empty()) 
-	{
-		printf("Error opening image\n");
-		return -1;
+	/// Opening the video
+	VideoCapture cap(argv[1]);
+	
+	if (!cap.isOpened()){
+		cout << "Error opening the file" << endl;
 	}
 	
-	/// Extracting the color spaces
-	cvtColor(image, imageHSV, COLOR_RGB2HSV);
-	cvtColor(image, imageYUV, COLOR_RGB2YCrCb);
+	/// Displaying frame by frame
+	while (1){
+		
+		cap >> image;
 	
-	/// Displaying the 3 images
-	namedWindow("HSV", WINDOW_AUTOSIZE);
-	imshow("HSV", imageHSV);
-	
-	namedWindow("YUV", WINDOW_AUTOSIZE);
-	imshow("YUV", imageYUV);
-	
-	if (waitKey() == 27) {
-        	return -1;
-   	}	
+		cvtColor(image, imageHSV, COLOR_RGB2HSV);
+		cvtColor(image, imageYUV, COLOR_RGB2YUV);
+		
+		/// Displaying the 3 images
+		namedWindow("HSV", WINDOW_AUTOSIZE);
+		imshow("HSV", imageHSV);
+		
+		namedWindow("YUV", WINDOW_AUTOSIZE);
+		imshow("YUV", imageYUV);
+		
+		char c = (char) waitKey(25);
+		if( c == 27 ){
+			break;
+		}
+	   }	
 
 	destroyAllWindows();
 	return 0;

@@ -27,30 +27,34 @@ int main( int argc, char** argv )
 	Mat imageGRAY;
 	Mat dst;
 	
-	/// Loads an image
-	image = imread(argv[1], IMREAD_COLOR ); 
-
-	/// Check if image is loaded fine
-	if( image.empty()) 
-	{
-		printf("Error opening image\n");
-		return -1;
+	// Opening the video
+	VideoCapture cap(argv[1]);
+	
+	if (!cap.isOpened()){
+		cout << "Error opening the file" << endl;
 	}
 	
-	/// Image scale to gray
-	cvtColor(image, imageGRAY, COLOR_RGB2GRAY);
+	/// Displaying frame by frame
+	while (1){
 
+		cap >> image;
 	
-	/// Displaying the image
-	namedWindow("GRAY", WINDOW_AUTOSIZE);
-	imshow("GRAY", imageGRAY);
-	
-    	equalizeHist( imageGRAY, dst );
-    	imshow( "Equalized Image", dst );
-	
-	if (waitKey() == 27) {
-        	return -1;
-   	}	
+		/// Image scale to gray
+		cvtColor(image, imageGRAY, COLOR_RGB2GRAY);
+
+		
+		/// Displaying the image
+		namedWindow("GRAY", WINDOW_AUTOSIZE);
+		imshow("GRAY", imageGRAY);
+		
+	    	equalizeHist( imageGRAY, dst );
+	    	imshow( "Equalized Image", dst );
+		
+		char c = (char) waitKey(25);
+		if( c == 27 ){
+			break;
+		}
+	   }	
 
 	destroyAllWindows();
 	return 0;
