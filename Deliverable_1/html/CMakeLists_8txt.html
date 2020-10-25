@@ -72,8 +72,8 @@ $(function() {
 Functions</h2></td></tr>
 <tr class="memitem:ae441d850c4d137d6f18094069a7bfa02"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#ae441d850c4d137d6f18094069a7bfa02">cmake_minimum_required</a> (VERSION 2.8) project(Example) find_package(OpenCV REQUIRED) include_directories($</td></tr>
 <tr class="separator:ae441d850c4d137d6f18094069a7bfa02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee59bbf4a39d251656f546ee81fe6541"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#aee59bbf4a39d251656f546ee81fe6541">add_executable</a> (Display DisplayVideoRGB.cpp) add_executable(WaterMark WaterMark.cpp) add_executable(HSV_YUV HSV_YUV.cpp) add_executable(Histogram Histogram.cpp) add_executable(GrayScale GrayScale.cpp) add_executable(GausAndBlur GausAndBlur.cpp) add_executable(Gradients Gradients.cpp) add_executable(Canny Canny.cpp) add_executable(Segmentation Segmentation.cpp) <a class="el" href="CMakeLists_8txt.html#abe978749b8ee0b7db31c31c1fffc579b">target_link_libraries</a>(Display $</td></tr>
-<tr class="separator:aee59bbf4a39d251656f546ee81fe6541"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49ae311cda9a20eb87df20aefe91182f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a49ae311cda9a20eb87df20aefe91182f">add_executable</a> (Display DisplayVideoRGBorYUV.cpp) add_executable(WaterMark WaterMark.cpp) add_executable(HSV_YUV HSV_YUV.cpp) add_executable(Histogram Histogram.cpp) add_executable(GrayScale GrayScale.cpp) add_executable(GausAndBlur GausAndBlur.cpp) add_executable(Gradients Gradients.cpp) add_executable(Canny Canny.cpp) add_executable(Segmentation Segmentation.cpp) add_executable(Morph Morphologic.cpp) <a class="el" href="CMakeLists_8txt.html#abe978749b8ee0b7db31c31c1fffc579b">target_link_libraries</a>(Display $</td></tr>
+<tr class="separator:a49ae311cda9a20eb87df20aefe91182f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5718652a88d06dc5811ff8c3b0fadf02"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a5718652a88d06dc5811ff8c3b0fadf02">target_link_libraries</a> (WaterMark ${OpenCV_LIBS}) target_link_libraries(HSV_YUV $</td></tr>
 <tr class="separator:a5718652a88d06dc5811ff8c3b0fadf02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa835e2ef0d56028711604a6c6cce73b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#aa835e2ef0d56028711604a6c6cce73b1">target_link_libraries</a> (Histogram ${OpenCV_LIBS}) target_link_libraries(GrayScale $</td></tr>
@@ -84,8 +84,8 @@ Functions</h2></td></tr>
 <tr class="separator:abe978749b8ee0b7db31c31c1fffc579b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="aee59bbf4a39d251656f546ee81fe6541"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee59bbf4a39d251656f546ee81fe6541">&#9670;&nbsp;</a></span>add_executable()</h2>
+<a id="a49ae311cda9a20eb87df20aefe91182f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49ae311cda9a20eb87df20aefe91182f">&#9670;&nbsp;</a></span>add_executable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -93,7 +93,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">add_executable </td>
           <td>(</td>
-          <td class="paramtype">Display DisplayVideoRGB.&#160;</td>
+          <td class="paramtype">Display DisplayVideoRGBorYUV.&#160;</td>
           <td class="paramname"><em>cpp</em></td><td>)</td>
           <td></td>
         </tr>

@@ -1,5 +1,5 @@
 /*! \file GausAndBlur.cpp
- *	\brief Applying diferent blur filters
+ *	\brief Applying diferent blur filters | Flags: -a (Average blur) ; -g (Gaussian blur) ; -m (Median blur) ; -b (Billateral blur) and with each add the size of the kernel
  *	       
  *	
  *	

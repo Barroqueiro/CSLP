@@ -1,5 +1,5 @@
 /** \file DisplayVideoRGBorYUV.cpp
- *	\brief Video display iwth options for RGB, YUV, and the subsamples of 4:2:2 and 4:2:0
+ *	\brief Video display iwth options for RGB, YUV, and the subsamples of 4:2:2 and 4:2:0 | flags: -rgb ; -yuv ; -yuv420 ; -yuv422
  *	       
  *	
  *	

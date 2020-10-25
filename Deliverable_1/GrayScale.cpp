@@ -47,6 +47,7 @@ int main( int argc, char** argv )
 		namedWindow("GRAY", WINDOW_AUTOSIZE);
 		imshow("GRAY", imageGRAY);
 		
+		/// Equalized
 	    	equalizeHist( imageGRAY, dst );
 	    	imshow( "Equalized Image", dst );
 		

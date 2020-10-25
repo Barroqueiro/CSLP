@@ -1,5 +1,5 @@
 /*! \file Canny.cpp
- *	\brief Canny edge algorithm
+ *	\brief Canny edge algorithm | flags: kernel size as an integer
  *	       
  *	
  *

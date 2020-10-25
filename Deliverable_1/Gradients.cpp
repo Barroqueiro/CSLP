@@ -1,5 +1,5 @@
 /*! \file Gradients.cpp
- *	\brief Getting the gradients
+ *	\brief Getting the gradients | Flags : -s (Sobel) ; -sc (Scharr) ; -l (Laplacian)
  *	       
  *	
  *	
