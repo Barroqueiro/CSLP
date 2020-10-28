@@ -1,0 +1,11 @@
+BitStream bs("x.bin")
+
+bs.writeBit(0);
+
+bs.writeNBits(3,2) -> ecrever 3 em 2 bits
+
+bf |= 0x01 << pos ; para colocar o bit 1 na posição "pos"
+
+Para escrever strings é só iterar pela string e escrever cada letra com o codigo ascci em 8 bits (1 byte)
+
+2 Classes In e Out BitStream
