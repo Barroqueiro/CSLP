@@ -9,6 +9,6 @@
 # Deliverable nº 2
 
 ## Running the programs:
- cd build
- make
- ./test
+### $ cd build
+### $ make
+### $ ./test
