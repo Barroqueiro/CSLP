@@ -5,3 +5,10 @@
 
 ## Running the programs:
  ./[name_of_program] [Arguments]
+ 
+# Deliverable nº 2
+
+## Running the programs:
+ cd build
+ make
+ ./test
