@@ -85,6 +85,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac058bd7943b9de2b24884f71a5b80a9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWBitStream.html#ac058bd7943b9de2b24884f71a5b80a9c">writeString</a> (string s)</td></tr>
 <tr class="memdesc:ac058bd7943b9de2b24884f71a5b80a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a string function, function that for each char of the string used the writeNBits function to write a byte, each for each char of the string.  <a href="classWBitStream.html#ac058bd7943b9de2b24884f71a5b80a9c">More...</a><br /></td></tr>
 <tr class="separator:ac058bd7943b9de2b24884f71a5b80a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fc629dfad5d9a287fba5063f559aa66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWBitStream.html#a7fc629dfad5d9a287fba5063f559aa66">close</a> ()</td></tr>
+<tr class="memdesc:a7fc629dfad5d9a287fba5063f559aa66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the bits in the buffer if its not a multiple of 8.  <a href="classWBitStream.html#a7fc629dfad5d9a287fba5063f559aa66">More...</a><br /></td></tr>
+<tr class="separator:a7fc629dfad5d9a287fba5063f559aa66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -139,6 +142,33 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a7fc629dfad5d9a287fba5063f559aa66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fc629dfad5d9a287fba5063f559aa66">&#9670;&nbsp;</a></span>close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WBitStream::close </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Write the bits in the buffer if its not a multiple of 8. </p>
+
+</div>
+</div>
 <a id="ac6e95652bfe33eb4261cfc7f5d3fbf4b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6e95652bfe33eb4261cfc7f5d3fbf4b">&#9670;&nbsp;</a></span>writeBit()</h2>
 

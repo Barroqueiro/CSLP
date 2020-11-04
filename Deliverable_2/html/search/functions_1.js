@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_31',['main',['../TestBitStream_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'TestBitStream.cpp']]]
+  ['close_32',['close',['../classWBitStream.html#a7fc629dfad5d9a287fba5063f559aa66',1,'WBitStream']]]
 ];

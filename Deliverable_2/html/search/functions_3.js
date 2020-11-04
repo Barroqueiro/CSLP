@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['wbitstream_37',['WBitStream',['../classWBitStream.html#a0d7bcfed56454551d3af9b264b8a9ad0',1,'WBitStream']]],
-  ['writebit_38',['writeBit',['../classWBitStream.html#ac6e95652bfe33eb4261cfc7f5d3fbf4b',1,'WBitStream']]],
-  ['writebyte_39',['writeByte',['../classWBitStream.html#a91bc7acbeec10b0a266a156eb7d20e11',1,'WBitStream']]],
-  ['writenbits_40',['writeNBits',['../classWBitStream.html#a4e7d20771a5c577c381623eae0736c77',1,'WBitStream::writeNBits()'],['../Notas_8txt.html#a4d49d6e40f7c2c7e9debd71b460c7965',1,'writeNBits():&#160;Notas.txt']]],
-  ['writestring_41',['writeString',['../classWBitStream.html#ac058bd7943b9de2b24884f71a5b80a9c',1,'WBitStream']]]
+  ['rbitstream_34',['RBitStream',['../classRBitStream.html#aa0cc19ec9a9d614d27cd6b204618a6c1',1,'RBitStream']]],
+  ['readbit_35',['readBit',['../classRBitStream.html#a5b12b9f5a91a45dabb494e2a6acf4486',1,'RBitStream']]],
+  ['readbyte_36',['readByte',['../classRBitStream.html#ae9a1513738a4ee5bb527c62fdce3edcf',1,'RBitStream']]],
+  ['readnbits_37',['readNBits',['../classRBitStream.html#ae312c3e027ac73cca09a9c6d19bfdfb0',1,'RBitStream']]],
+  ['readstring_38',['readString',['../classRBitStream.html#a621c21c56d298aa744ea828975a96e8f',1,'RBitStream']]]
 ];

@@ -84,8 +84,11 @@ class WBitStream {
 			}
 		}
 		
-	
+		//! Write the bits in the buffer if its not a multiple of 8
 		
+		void close(){
+			writeByte();
+		}
 };
 
 
