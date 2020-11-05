@@ -46,19 +46,15 @@ class Golomb {
 	   		// Unary part
 	   		for(int c = 0 ; c < q; c++){
 	   			wbs->writeBit(0);
-	   			printf("%d",0);
 	   		}
 	   		wbs->writeBit(1);
-	   		printf("%d\n",1);
 	   		// Binary part
 	   		int pow = log2(m);
 	   		int temp = 0;
 	   		unsigned char u = (unsigned char) r;
 	   		for (int i = 7 -(7-pow) -1 ; i != -1 ; i--) {
-				printf("%d",(int)((u & (1 << i)) != 0));
 				wbs->writeBit((int)((u & (1 << i)) != 0));
 			}
-			printf("\n");
 	   	}
 	   	
 	   	int decode(){
