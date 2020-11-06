@@ -23,13 +23,19 @@ using namespace std;
 /*! Golomb code class */
 class Golomb {
 	private:
-		int m;
-		int flag;
-		RBitStream* rbs;
-		WBitStream* wbs;
+		int m/*! Paramter m for the Glomb code */;
+		int flag/*! Flag to signal if we are reading or writing */;
+		RBitStream* rbs/*! Reading BitStream */;
+		WBitStream* wbs/*! Writing BitStream */;;
 		
 	public: 
-	   	
+	
+	   	//! A constructor, Initiates the type of BitStream considering the flag, and atributes value to the class atributes
+	    /*!
+	      \param file A string with the name of the file
+	      \param M Parameter m for the golomb code
+	      \param Flag Flag to signal if we are reading(0) or Writing(1)
+	    */
 	   	Golomb(string file, int M, int Flag){
 	   		if(flag == 0){
 	   			rbs = new RBitStream(file);
@@ -40,6 +46,10 @@ class Golomb {
 	   		flag = Flag;
 	   	}
 	   	
+	   	//! Encode de number passed as a parameter, calculating the quotient and the remainder and ecoding inunary and binary respectively
+	    /*!
+	      \param n The number to encode
+	    */
 	   	void encode(int n){
 	   		int r = n % m;
 	   		int q = n / m;
@@ -56,7 +66,7 @@ class Golomb {
 				wbs->writeBit((int)((u & (1 << i)) != 0));
 			}
 	   	}
-	   	
+	   	//! Decode a number from the file passed, first we read 0 bits until we find a bit with the value of 1, the number of 0's is the quotient, secondly we readingNBits from the filess with N being the log2(m), lastly return the value of the integer decoded
 	   	int decode(){
 	   		int bit = rbs->readBit();
 	   		int quo = 0;
@@ -69,6 +79,7 @@ class Golomb {
 	  		return quo*m + r;
 	   	}
 	   	
+	   	//! simply close the write stream considering we mingh not encode a number of bits multiple of 8
 	   	void close(){
 	   		if (flag == 1){
 	   			wbs->close();
