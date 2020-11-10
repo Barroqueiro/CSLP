@@ -23,7 +23,8 @@ using namespace std;
 
 int main( int argc, char** argv )
 {
-	int toEncode [7] = {11,32,21,7,3,54,61} ;
+	int s = 10;
+	int toEncode [10] = {11,32,21,7,3,54,61,5,255,160} ;
 	Golomb e = Golomb("out.bin",4,1);
 	for (int enc:toEncode){
 		e.encode(enc);
@@ -31,8 +32,8 @@ int main( int argc, char** argv )
 	e.close();
 	printf("Elements to encode: \n");
 	printf("[");
-	for(int i = 0 ; i < 7 ; i++){
-		if(i == 6){
+	for(int i = 0 ; i < s ; i++){
+		if(i == s-1){
 			printf("%d",toEncode[i]);
 		}else{
 			printf("%d ,",toEncode[i]);

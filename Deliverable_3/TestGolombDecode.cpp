@@ -22,10 +22,11 @@ using namespace std;
 
 
 int main( int argc, char** argv )
-{		
+{	
+	int s=10;	
 	Golomb d = Golomb("out.bin",4,0);
 	printf("Decoded Elements: \n");
-	for(int i = 0 ; i < 7 ; i++){
+	for(int i = 0 ; i < s ; i++){
 		printf("%d\n",d.decode());
 	}
 	d.close();
