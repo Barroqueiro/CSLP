@@ -75,10 +75,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a15968ad170e33dfa72538641078e85db"><td class="mdescLeft">&#160;</td><td class="mdescRight">A constructor, Initiates the type of BitStream considering the flag, and atributes value to the class atributes.  <a href="classGolomb.html#a15968ad170e33dfa72538641078e85db">More...</a><br /></td></tr>
 <tr class="separator:a15968ad170e33dfa72538641078e85db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac23190a357af7db62de1f4a213c6ce36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGolomb.html#ac23190a357af7db62de1f4a213c6ce36">encode</a> (int n)</td></tr>
-<tr class="memdesc:ac23190a357af7db62de1f4a213c6ce36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode de number passed as a parameter, calculating the quotient and the remainder and ecoding inunary and binary respectively.  <a href="classGolomb.html#ac23190a357af7db62de1f4a213c6ce36">More...</a><br /></td></tr>
+<tr class="memdesc:ac23190a357af7db62de1f4a213c6ce36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode de number passed as a parameter, calculating the quotient and the remainder and ecoding inunary and binary respectively depending on the value of m.  <a href="classGolomb.html#ac23190a357af7db62de1f4a213c6ce36">More...</a><br /></td></tr>
 <tr class="separator:ac23190a357af7db62de1f4a213c6ce36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfc8d58261fc9bcc5d5e2559aed4a288"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGolomb.html#abfc8d58261fc9bcc5d5e2559aed4a288">decode</a> ()</td></tr>
-<tr class="memdesc:abfc8d58261fc9bcc5d5e2559aed4a288"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode a number from the file passed, first we read 0 bits until we find a bit with the value of 1, the number of 0's is the quotient, secondly we readingNBits from the filess with N being the log2(m), lastly return the value of the integer decoded.  <a href="classGolomb.html#abfc8d58261fc9bcc5d5e2559aed4a288">More...</a><br /></td></tr>
+<tr class="memdesc:abfc8d58261fc9bcc5d5e2559aed4a288"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode a number from the file passed, first we read 0 bits until we find a bit with the value of 1, the number of 0's is the quotient, secondly we read NBits from the file with N being the log2(m), lastly return the value of the integer decoded, this is not true when m is not a power of 2 since we need to do some more calculations.  <a href="classGolomb.html#abfc8d58261fc9bcc5d5e2559aed4a288">More...</a><br /></td></tr>
 <tr class="separator:abfc8d58261fc9bcc5d5e2559aed4a288"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab928e9d8241432f201c1c8d72b544959"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGolomb.html#ab928e9d8241432f201c1c8d72b544959">close</a> ()</td></tr>
 <tr class="memdesc:ab928e9d8241432f201c1c8d72b544959"><td class="mdescLeft">&#160;</td><td class="mdescRight">simply close the write stream considering we mingh not encode a number of bits multiple of 8  <a href="classGolomb.html#ab928e9d8241432f201c1c8d72b544959">More...</a><br /></td></tr>
@@ -190,7 +190,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Decode a number from the file passed, first we read 0 bits until we find a bit with the value of 1, the number of 0's is the quotient, secondly we readingNBits from the filess with N being the log2(m), lastly return the value of the integer decoded. </p>
+<p>Decode a number from the file passed, first we read 0 bits until we find a bit with the value of 1, the number of 0's is the quotient, secondly we read NBits from the file with N being the log2(m), lastly return the value of the integer decoded, this is not true when m is not a power of 2 since we need to do some more calculations. </p>
 
 </div>
 </div>
@@ -218,7 +218,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Encode de number passed as a parameter, calculating the quotient and the remainder and ecoding inunary and binary respectively. </p>
+<p>Encode de number passed as a parameter, calculating the quotient and the remainder and ecoding inunary and binary respectively depending on the value of m. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">n</td><td>The number to encode </td></tr>

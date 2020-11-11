@@ -30,7 +30,22 @@ int main( int argc, char** argv )
 		e.encode(enc);
 	}
 	e.close();
-	printf("Elements to encode: \n");
+	printf("Elements to encode with m = 4: \n");
+	printf("[");
+	for(int i = 0 ; i < s ; i++){
+		if(i == s-1){
+			printf("%d",toEncode[i]);
+		}else{
+			printf("%d ,",toEncode[i]);
+		}
+	}
+	printf("]\n");
+	Golomb e_t = Golomb("out_tr.bin",5,1);
+	for (int enc:toEncode){
+		e_t.encode(enc);
+	}
+	e_t.close();
+	printf("Elements to encode with m = 5: \n");
 	printf("[");
 	for(int i = 0 ; i < s ; i++){
 		if(i == s-1){

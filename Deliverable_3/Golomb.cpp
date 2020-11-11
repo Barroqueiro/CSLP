@@ -46,37 +46,65 @@ class Golomb {
 	   		flag = Flag;
 	   	}
 	   	
-	   	//! Encode de number passed as a parameter, calculating the quotient and the remainder and ecoding inunary and binary respectively
+	   	//! Encode de number passed as a parameter, calculating the quotient and the remainder and ecoding inunary and binary respectively depending on the value of m
 	    /*!
 	      \param n The number to encode
 	    */
 	   	void encode(int n){
 	   		int r = n % m;
-	   		int q = n / m;
-	   		// Unary part
-	   		for(int c = 0 ; c < q; c++){
-	   			wbs->writeBit(0);
+		   	int q = n / m;
+		   	// Unary part
+		   	for(int c = 0 ; c < q; c++){
+		   		wbs->writeBit(0);
+		   	}
+		   	wbs->writeBit(1);
+	   		if ((m & (m-1)) == 0){
+		   		// Binary part
+		   		int pow = log2(m);
+		   		unsigned char u = (unsigned char) r;
+		   		for (int i = 7 -(7-pow) -1 ; i != -1 ; i--) {
+					wbs->writeBit((int)((u & (1 << i)) != 0));
+				}
+	   		}else{
+	   			// Binary part truncated
+		   		int b = ceil(log2(m));
+		   		unsigned char tr = (unsigned char) r;
+		   		if (r < pow(2,b) - m){
+		   			for (int i = 7 -(7-(b-1)) -1 ; i != -1 ; i--) {
+						wbs->writeBit((int)((tr & (1 << i)) != 0));
+					}	
+		   		} else {
+		   		int bigger_r = r + pow(2,b)-m;
+		   		unsigned char br = (unsigned char) bigger_r;
+		   			for (int i = 7 -(7-b) -1 ; i != -1 ; i--) {
+						wbs->writeBit((int)((br & (1 << i)) != 0));
+					}	
+		   		}
 	   		}
-	   		wbs->writeBit(1);
-	   		// Binary part
-	   		int pow = log2(m);
-	   		int temp = 0;
-	   		unsigned char u = (unsigned char) r;
-	   		for (int i = 7 -(7-pow) -1 ; i != -1 ; i--) {
-				wbs->writeBit((int)((u & (1 << i)) != 0));
-			}
 	   	}
-	   	//! Decode a number from the file passed, first we read 0 bits until we find a bit with the value of 1, the number of 0's is the quotient, secondly we readingNBits from the filess with N being the log2(m), lastly return the value of the integer decoded
+	   	//! Decode a number from the file passed, first we read 0 bits until we find a bit with the value of 1, the number of 0's is the quotient, secondly we read NBits from the file with N being the log2(m), lastly return the value of the integer decoded, this is not true when m is not a power of 2 since we need to do some more calculations
 	   	int decode(){
 	   		int bit = rbs->readBit();
-	   		int quo = 0;
-	   		while(bit != 1){
-	   			bit = rbs->readBit();
-	   			quo++;
-	   		}
-	   		int pow = log2(m);
-	   		int r = rbs->readNBits(pow);
-	  		return quo*m + r;
+		   	int quo = 0;
+		   	while(bit != 1){
+		   		bit = rbs->readBit();
+		   		quo++;
+		   	}
+	   		if ((m & (m-1)) == 0){
+		   		int pow = log2(m);
+		   		int r = rbs->readNBits(pow);
+		  		return quo*m + r;
+	  		} else {
+	  			int b = ceil(log2(m));
+	  			int z = rbs->readNBits(b-1);
+	  			if (z < pow(2,b)-m){
+	  				return quo*m+z;
+	  			}else{
+	  				int other_bit = rbs->readBit();
+	  				int fr = z < 1;
+	  				return quo*m+fr+other_bit;
+	  			}
+	  		}
 	   	}
 	   	
 	   	//! simply close the write stream considering we mingh not encode a number of bits multiple of 8

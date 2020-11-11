@@ -7,7 +7,9 @@ digraph "WBitStream.cpp"
   Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node2 [label="Golomb.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Golomb_8cpp.html",tooltip="Class to encode and decode Golomb code."];
   Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node3 [label="TestGolombDecode.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$TestGolombDecode_8cpp.html",tooltip="Just some quick tests for the Golomb class."];
+  Node3 [label="TestGolombDecodeN.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$TestGolombDecodeN_8cpp.html",tooltip="Just some quick tests for the Golomb class."];
   Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node4 [label="TestGolombEncode.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$TestGolombEncode_8cpp.html",tooltip="Just some quick tests for the Golomb class."];
+  Node4 [label="TestGolombDecodeT.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$TestGolombDecodeT_8cpp.html",tooltip="Just some quick tests for the Golomb class."];
+  Node2 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="TestGolombEncode.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$TestGolombEncode_8cpp.html",tooltip="Just some quick tests for the Golomb class."];
 }

@@ -1,4 +1,4 @@
-/*! \file TestGolombDecode.cpp
+/*! \file TestGolombDecodeT.cpp
  *	\brief Just some quick tests for the Golomb class 
  *	       
  *	
