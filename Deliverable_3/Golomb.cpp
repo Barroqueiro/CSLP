@@ -51,8 +51,14 @@ class Golomb {
 	      \param n The number to encode
 	    */
 	   	void encode(int n){
+	   		int sign = 0;
+		   	if (n <0){
+		   	    sign = 1;
+		   	    n=n*(-1);
+		   	}
 	   		int r = n % m;
 		   	int q = n / m;
+		   	wbs->writeBit(sign);
 		   	// Unary part
 		   	for(int c = 0 ; c < q; c++){
 		   		wbs->writeBit(0);
@@ -84,6 +90,7 @@ class Golomb {
 	   	}
 	   	//! Decode a number from the file passed, first we read 0 bits until we find a bit with the value of 1, the number of 0's is the quotient, secondly we read NBits from the file with N being the log2(m), lastly return the value of the integer decoded, this is not true when m is not a power of 2 since we need to do some more calculations
 	   	int decode(){
+	   		int sign = rbs->readBit();
 	   		int bit = rbs->readBit();
 		   	int quo = 0;
 		   	while(bit != 1){
@@ -93,16 +100,29 @@ class Golomb {
 	   		if ((m & (m-1)) == 0){
 		   		int pow = log2(m);
 		   		int r = rbs->readNBits(pow);
-		  		return quo*m + r;
+		   		if (sign == 0){
+		   			return quo*m + r;
+		   		}else{
+		   			return (quo*m + r)*(-1);
+		   		}
+		  		
 	  		} else {
 	  			int b = ceil(log2(m));
 	  			int z = rbs->readNBits(b-1);
 	  			if (z < pow(2,b)-m){
-	  				return quo*m+z;
+	  				if (sign == 0){
+	  					return quo*m+z;
+	  				}else{
+	  					return (quo*m+z)*(-1);
+	  				}
 	  			}else{
 	  				int other_bit = rbs->readBit();
 	  				int fr = z < 1;
-	  				return quo*m+fr+other_bit;
+	  				if (sign == 0){
+	  					return quo*m+fr+other_bit;
+	  				}else{
+	  					return (quo*m+fr+other_bit)*(-1);
+	  				}
 	  			}
 	  		}
 	   	}

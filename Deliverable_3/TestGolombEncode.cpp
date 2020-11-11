@@ -24,7 +24,7 @@ using namespace std;
 int main( int argc, char** argv )
 {
 	int s = 10;
-	int toEncode [10] = {11,32,21,7,3,54,61,5,255,160} ;
+	int toEncode [10] = {-3,32,21,7,11,54,61,5,255,160} ;
 	Golomb e = Golomb("out.bin",4,1);
 	for (int enc:toEncode){
 		e.encode(enc);
