@@ -20,6 +20,7 @@
 #include <fstream> 
 #include <vector>
 #include <math.h>
+#include <ctime>
 #include "Preditor.cpp"
 
 using namespace std;
@@ -32,9 +33,7 @@ class LosslessEncoder {
 		int pred/*! */;
 		int m/*! */;
 		string File;
-		Preditor *p1;
-		Preditor *p2;
-		Preditor *p3;
+		Preditor *p;
 	public: 
 	
 	   	//! A constructor, Initiates the type of BitStream considering the flag, and atributes value to the class atributes
@@ -48,9 +47,7 @@ class LosslessEncoder {
 	   		type = Type;
 	   		pred = Pred;
 	   		File = file;
-	   		p1 = new Preditor(pred,m,"plane1.bin",type);
-			p2 = new Preditor(pred,m,"plane2.bin",type);
-			p3 = new Preditor(pred,m,"plane3.bin",type);
+	   		p = new Preditor(pred,m,"Encoded.bin",type);
 	   	}
 	   	
 	   	//! Encode de number passed as a parameter, calculating the quotient and the remainder and ecoding inunary and binary respectively depending on the value of m
@@ -58,6 +55,7 @@ class LosslessEncoder {
 	      \param n The number to encode
 	    */
 	   	void encode(){
+	   		clock_t begin = clock();
 	   		int count = 1;
 	   		Mat frame;
 	   		Mat frame1;
@@ -66,13 +64,14 @@ class LosslessEncoder {
 			while(!frame.empty()){
 				vector<Mat> planes;
 				split(frame, planes);
-				p1->encodeJPEG1(planes[0]);
-				p1->encodeJPEG1(planes[1]);
-				p1->encodeJPEG1(planes[2]);
+				p->encodeJPEG2(planes[0]);
+				p->encodeJPEG2(planes[1]);
+				p->encodeJPEG2(planes[2]);
 				cap >> frame;
-				cout << count << endl;
 				count++;
 			}
+			double elapsed_secs = double(clock()-begin);
+			cout << elapsed_secs << endl;
 	   	}
 	   	//! Decode a number from the file passed, first we read 0 bits until we find a bit with the value of 1, the number of 0's is the quotient, secondly we read NBits from the file with N being the log2(m), lastly return the value of the integer decoded, this is not true when m is not a power of 2 since we need to do some more calculations
 	   	int decode(){

@@ -23,7 +23,7 @@ using namespace std;
 
 int main( int argc, char** argv )
 {	
-	LosslessEncoder l(0,0,4,argv[1]);
+	LosslessEncoder l(0,0,8,argv[1]);
 	l.encode();
 	return 0;
 }

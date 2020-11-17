@@ -46,6 +46,7 @@ class Preditor {
 	   		typeVideo = TypeVideo;
 	   		g = new Golomb(file,m,1);
 	   		start = 1;
+	   		cout << "Write header" << endl;
 	   		wbs = new WBitStream(file);
 	   		wbs->writeNBits(typeVideo,8);
 	   		wbs->writeNBits(type,8);
@@ -68,13 +69,12 @@ class Preditor {
 		   		for (int h = 0; h < 4-height.length();h++){
 		   			height = "0"+height;
 		   		}
-		   		cout << height << endl;
-		   		cout << width<< endl;
+		   		cout << "Processing video" << endl;
+		   		start=0;
 			}
 			int pixel;
 			int lastPixel = 0;
 			int ind = 1;
-			cout << "Frame" << endl;
 			for(int c = 0; c < lin; c++){
 				lastPixel = 0;
 				for(int i = 0; i < col; i++){
@@ -97,18 +97,18 @@ class Preditor {
 		   		for (int h = 0; h < 4-height.length();h++){
 		   			height = "0"+height;
 		   		}
-		   		cout << height << endl;
-		   		cout << width<< endl;
-	   		
 			}
 			int pixel;
-			int lastPixel = 0;
+			int lastPixel;
 			for(int c = 0; c < lin; c++){
-				lastPixel = 0; 
 				for(int i = 0; i < col; i++){
 					pixel = f.at<uchar>(Point(c,i));
-					printf("%d",pixel-lastPixel);
-					lastPixel = pixel;
+					if(i-1 >=0){
+						lastPixel=f.at<uchar>(Point(c,i));
+					}else{
+						lastPixel=0;
+					}
+					g->encode(pixel-lastPixel);
 				}
 			}
 	   	}
