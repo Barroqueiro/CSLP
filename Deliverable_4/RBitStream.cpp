@@ -82,6 +82,10 @@ class RBitStream {
 			return res;
 		}
 		
+		void close(){
+			ifsb.close();
+		}
+		
 };
 
 

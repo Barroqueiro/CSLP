@@ -37,8 +37,8 @@ class Golomb {
 	      \param Flag Flag to signal if we are reading(0) or Writing(1)
 	    */
 	   	Golomb(string file, int M, int Flag){
-	   		if(flag == 0){
-	   		rbs = new RBitStream(file);
+	   		if(Flag == 0){
+	   			rbs = new RBitStream(file);
 	   		}else{
 	   			wbs = new WBitStream(file);
 	   		}
@@ -132,6 +132,14 @@ class Golomb {
 	   		if (flag == 1){
 	   			wbs->close();
 	   		}
+	   	}
+	   	
+	   	void SkipNBytes(int n){
+	   		int temp = 0;
+	   		for (int i = 0; i < n; i++){
+	   			temp = rbs->readNBits(8);
+	   		}
+	   		rbs->readBit();
 	   	}
 		
 };
