@@ -23,8 +23,8 @@ using namespace std;
 
 int main( int argc, char** argv )
 {	
-	LosslessEncoder l(0,0,5,argv[1]);
-	l.decode();
+	LosslessEncoder d(0,0,0,"",0,argv[1]);
+	d.decode();
 	return 0;
 }
 

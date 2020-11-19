@@ -76,15 +76,17 @@ class Golomb {
 		   		int b = ceil(log2(m));
 		   		unsigned char tr = (unsigned char) r;
 		   		if (r < pow(2,b) - m){
-		   			for (int i = 7 -(7-(b-1)) -1 ; i != -1 ; i--) {
-						wbs->writeBit((int)((tr & (1 << i)) != 0));
-					}	
+		   			wbs->writeNBits(r,b-1);
+		   			//for (int i = 7 -(7-(b-1)) -1 ; i != -1 ; i--) {
+					//	wbs->writeBit((int)((tr & (1 << i)) != 0));
+					//}	
 		   		} else {
 		   		int bigger_r = r + pow(2,b)-m;
 		   		unsigned char br = (unsigned char) bigger_r;
-		   			for (int i = 7 -(7-b) -1 ; i != -1 ; i--) {
-						wbs->writeBit((int)((br & (1 << i)) != 0));
-					}	
+		   			wbs->writeNBits(bigger_r,b);
+		   			//for (int i = 7 -(7-b) -1 ; i != -1 ; i--) {
+					//	wbs->writeBit((int)((br & (1 << i)) != 0));
+					//}	
 		   		}
 	   		}
 	   	}
@@ -117,11 +119,11 @@ class Golomb {
 	  				}
 	  			}else{
 	  				int other_bit = rbs->readBit();
-	  				int fr = z < 1;
+	  				int fr = (z << 1) + other_bit;
 	  				if (sign == 0){
-	  					return quo*m+fr+other_bit;
+	  					return quo*m+(fr-pow(2,b)+m);
 	  				}else{
-	  					return (quo*m+fr+other_bit)*(-1);
+	  					return (quo*m+(fr-pow(2,b)+m))*(-1);
 	  				}
 	  			}
 	  		}
@@ -139,7 +141,7 @@ class Golomb {
 	   		for (int i = 0; i < n; i++){
 	   			temp = rbs->readNBits(8);
 	   		}
-	   		rbs->readBit();
+	   		//rbs->readBit();
 	   	}
 		
 };

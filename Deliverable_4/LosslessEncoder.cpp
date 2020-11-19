@@ -43,7 +43,7 @@ class LosslessEncoder {
 	      \param M Parameter m for the golomb code
 	      \param Flag Flag to signal if we are reading(0) or Writing(1)
 	    */
-	   	LosslessEncoder(int Type, int Pred, int M,string file,int flag){
+	   	LosslessEncoder(int Type, int Pred, int M,string file,int flag,string outFile){
 	   		m = M;
 	   		type = Type;
 	   		pred = Pred;
@@ -57,9 +57,9 @@ class LosslessEncoder {
 		   			count++;
 		   			capa >> fra;
 		   		}
-	   			p = new Preditor(pred,m,"Encoded.bin",type,count,flag);
+	   			p = new Preditor(pred,m,outFile,type,count,flag);
 	   		}else{
-	   			p = new Preditor(0,0,"Encoded.bin",0,0,0);
+	   			p = new Preditor(0,0,outFile,0,0,0);
 	   		}
 	   		cout << "aa" << endl;
 	   	}
@@ -83,7 +83,7 @@ class LosslessEncoder {
 						p->encodeJPEG1(planes[1]);
 						p->encodeJPEG1(planes[2]);
 						cap >> frame;
-						cout << count << endl;
+						cout << "Encoding Frame: "<< count << endl;
 						count++;
 					}
 	   				break;
@@ -95,6 +95,7 @@ class LosslessEncoder {
 						p->encodeJPEG2(planes[1]);
 						p->encodeJPEG2(planes[2]);
 						cap >> frame;
+						cout << "Encoding Frame: "<< count << endl;
 						count++;
 					}
 	   				break;
@@ -106,6 +107,7 @@ class LosslessEncoder {
 						p->encodeJPEG3(planes[1]);
 						p->encodeJPEG3(planes[2]);
 						cap >> frame;
+						cout << "Encoding Frame: "<< count << endl;
 						count++;
 					}
 	   				break;
@@ -116,6 +118,7 @@ class LosslessEncoder {
 						p->encodeJPEG4(planes[0]);
 						p->encodeJPEG4(planes[1]);
 						p->encodeJPEG4(planes[2]);
+						cout << "Encoding Frame: "<< count << endl;
 						cap >> frame;
 						count++;
 					}
@@ -127,6 +130,7 @@ class LosslessEncoder {
 						p->encodeJPEG5(planes[0]);
 						p->encodeJPEG5(planes[1]);
 						p->encodeJPEG5(planes[2]);
+						cout << "Encoding Frame: "<< count << endl;
 						cap >> frame;
 						count++;
 					}
@@ -138,6 +142,7 @@ class LosslessEncoder {
 						p->encodeJPEG6(planes[0]);
 						p->encodeJPEG6(planes[1]);
 						p->encodeJPEG6(planes[2]);
+						cout << "Encoding Frame: "<< count << endl;
 						cap >> frame;
 						count++;
 					}
@@ -149,6 +154,7 @@ class LosslessEncoder {
 						p->encodeJPEG7(planes[0]);
 						p->encodeJPEG7(planes[1]);
 						p->encodeJPEG7(planes[2]);
+						cout << "Encoding Frame: "<< count << endl;
 						cap >> frame;
 						count++;
 					}
@@ -159,6 +165,7 @@ class LosslessEncoder {
 						p->encodeJPEG_LS(planes[0]);
 						p->encodeJPEG_LS(planes[1]);
 						p->encodeJPEG_LS(planes[2]);
+						cout << "Encoding Frame: "<< count << endl;
 						cap >> frame;
 						count++;
 					}	   				
@@ -174,19 +181,122 @@ class LosslessEncoder {
 	   		Mat m3;
 	   		vector<Mat> channels ;
 	   		int fra = p->get_frames();
+	   		int mode = p->get_type();
 			/// JUntar de novo todos os planos
-			for(int b = 0; b<fra;b++){
-				m1 = p->decodeJPEG1();
-	   			m2 = p->decodeJPEG1();
-	   			m3 = p->decodeJPEG1();
-	   			channels = {m1,m2,m3};
-	   			merge(channels,result);
-				imshow("Display",result);
-				if(waitKey(30) >=0){
-					break;
-				}
-			}
-			waitKey(0);
+			switch (mode){
+	   			case 0:
+					for(int b = 0; b<fra;b++){
+						m1 = p->decodeJPEG1();
+	   					m2 = p->decodeJPEG1();
+	   					m3 = p->decodeJPEG1();
+	   					channels = {m1,m2,m3};
+	   					merge(channels,result);
+						imshow("Display",result);
+						if(waitKey(30) >=0){
+							break;
+						}
+						cout << "Decoding frame: " << b+1 << endl;
+					}
+	   				break;
+	   			case 1:
+					for(int b = 0; b<fra;b++){
+						m1 = p->decodeJPEG2();
+	   					m2 = p->decodeJPEG2();
+	   					m3 = p->decodeJPEG2();
+	   					channels = {m1,m2,m3};
+	   					merge(channels,result);
+						imshow("Display",result);
+						if(waitKey(30) >=0){
+							break;
+						}
+						cout << "Decoding frame: " << b+1 << endl;
+					}
+	   				break;
+		   		case 2:
+					for(int b = 0; b<fra;b++){
+						m1 = p->decodeJPEG3();
+	   					m2 = p->decodeJPEG3();
+	   					m3 = p->decodeJPEG3();
+	   					channels = {m1,m2,m3};
+	   					merge(channels,result);
+						imshow("Display",result);
+						if(waitKey(30) >=0){
+							break;
+						}
+						cout << "Decoding frame: " << b+1 << endl;
+					}
+	   				break;
+	  	   		case 3:
+					for(int b = 0; b<fra;b++){
+						m1 = p->decodeJPEG4();
+	   					m2 = p->decodeJPEG4();
+	   					m3 = p->decodeJPEG4();
+	   					channels = {m1,m2,m3};
+	   					merge(channels,result);
+						imshow("Display",result);
+						if(waitKey(30) >=0){
+							break;
+						}
+						cout << "Decoding frame: " << b+1 << endl;
+					}
+	   				break;
+		   		case 4:
+					for(int b = 0; b<fra;b++){
+						m1 = p->decodeJPEG5();
+	   					m2 = p->decodeJPEG5();
+	   					m3 = p->decodeJPEG5();
+	   					channels = {m1,m2,m3};
+	   					merge(channels,result);
+						imshow("Display",result);
+						if(waitKey(30) >=0){
+							break;
+						}
+						cout << "Decoding frame: " << b+1 << endl;
+					}
+	   				break;
+	  			case 5:
+					for(int b = 0; b<fra;b++){
+						m1 = p->decodeJPEG6();
+	   					m2 = p->decodeJPEG6();
+	   					m3 = p->decodeJPEG6();
+	   					channels = {m1,m2,m3};
+	   					merge(channels,result);
+						imshow("Display",result);
+						if(waitKey(30) >=0){
+							break;
+						}
+						cout << "Decoding frame: " << b+1 << endl;
+					}
+	   				break;
+ 	   			case 6:
+					for(int b = 0; b<fra;b++){
+						m1 = p->decodeJPEG7();
+	   					m2 = p->decodeJPEG7();
+	   					m3 = p->decodeJPEG7();
+	   					channels = {m1,m2,m3};
+	   					merge(channels,result);
+						imshow("Display",result);
+						if(waitKey(30) >=0){
+							break;
+						}
+						cout << "Decoding frame: " << b+1 << endl;
+					}
+	   				break;	   					   					case 7:
+					for(int b = 0; b<fra;b++){
+						m1 = p->decodeJPEG1();
+	   					m2 = p->decodeJPEG1();
+	   					m3 = p->decodeJPEG1();
+	   					channels = {m1,m2,m3};
+	   					merge(channels,result);
+						imshow("Display",result);
+						if(waitKey(30) >=0){
+							break;
+						}
+						cout << "Decoding frame: " << b+1 << endl;
+					}   				
+	   				break;
+	   				
+	   		}
 	   		return 1;
 	   	}
 	   	
