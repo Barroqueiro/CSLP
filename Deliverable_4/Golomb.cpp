@@ -136,6 +136,7 @@ class Golomb {
 	   		}
 	   	}
 	   	
+	   	//! Needed a function to when i dont want to start the decoding from the start, this one offsets the start of the golomb decoding by N bytes
 	   	void SkipNBytes(int n){
 	   		int temp = 0;
 	   		for (int i = 0; i < n; i++){

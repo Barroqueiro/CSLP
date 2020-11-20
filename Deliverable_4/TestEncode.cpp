@@ -1,5 +1,5 @@
-/*! \file TestGolombDecodeN.cpp
- *	\brief Just some quick tests for the Golomb class 
+/*! \file TestEncode.cpp
+ *	\brief Encode a video file by passing by order : The video file to encode, the type of predictive encoding you want,m param for the golomb code,file to encode to 
  *	       
  *	
  *
@@ -24,15 +24,16 @@ using namespace std;
 
 int main( int argc, char** argv )
 {	
+	//Code used to create the results.txt document where we encoded all type of prediction with m's ranging from 2 to 9
 	//int m_values [8] = {2,3,4,5,6,7,8,9};
 	//for (int  m:m_values){
 		//for(int i = 0;i<8;i++){
-			LosslessEncoder l(0,7,4,argv[1],1,"Encoded"+to_string(4)+"JPEGLS"+".bin");
-			l.encode();
+			//LosslessEncoder l(0,7,4,argv[1],1,"Encoded"+to_string(4)+"JPEGLS"+".bin");
+			//l.encode();
 		//}
 	//}
-	//LosslessEncoder l(0,7,5,argv[1],1,"EncodedJPEGLS.bin");
-	//l.encode();
+	LosslessEncoder l(0,stoi(argv[2]),stoi(argv[3]),argv[1],1,argv[4]);
+	l.encode();
 	return 0;
 }
 

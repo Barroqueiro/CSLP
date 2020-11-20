@@ -1,5 +1,5 @@
 /*! \file LosslessEncoder.cpp
- *	\brief Class to encode and decode Golomb code
+ *	\brief Class to encode and decode videos
  *	      
  *	
  *
@@ -26,22 +26,25 @@
 using namespace std;
 using namespace cv;
 
-/*! Golomb code class */
+/*! LosslessEncode code class */
 class LosslessEncoder {
 	private:
-		int type/*! */;
-		int pred/*! */;
-		int m/*! */;
-		string File;
-		Preditor *p;
+		int type/*! type of the video*/;
+		int pred/*! type of the predictor to be encoded*/;
+		int m/*! param m of the golomb class*/;
+		string File/*! Name of the file we are encoding*/;
+		Preditor *p/*! Pointer to the predictor that will encode/decode each frame */;
 		
 	public: 
 	
-	   	//! A constructor, Initiates the type of BitStream considering the flag, and atributes value to the class atributes
+	   	//! A constructor, Initiates the paramters of the encoder, the values dont realy matter in decoding since tha info comes from the file
 	    /*!
-	      \param file A string with the name of the file
+	      \param file A string with the name of the video file to encode
+	      \param outFile A string with the name of the file to encode to or to decode from
 	      \param M Parameter m for the golomb code
-	      \param Flag Flag to signal if we are reading(0) or Writing(1)
+	      \param Flag Flag to signal if we are encoding(1) or Decoding(0)
+	      \param Type Type of the video
+	      \param Pred predictor to encode or decode frames
 	    */
 	   	LosslessEncoder(int Type, int Pred, int M,string file,int flag,string outFile){
 	   		m = M;
@@ -64,10 +67,7 @@ class LosslessEncoder {
 	   		cout << "aa" << endl;
 	   	}
 	   	
-	   	//! Encode de number passed as a parameter, calculating the quotient and the remainder and ecoding inunary and binary respectively depending on the value of m
-	    /*!
-	      \param n The number to encode
-	    */
+	   	//! Encode the video passed as a paramter, switch to decide witch function of the preditor will be used based on with prediting encoding we want
 	   	void encode(){
 	   		int count = 1;
 	   		Mat frame;
@@ -174,7 +174,7 @@ class LosslessEncoder {
 	   				
 	   		}
 	   	}
-	   	//! Decode a number from the file passed, first we read 0 bits until we find a bit with the value of 1, the number of 0's is the quotient, secondly we read NBits from the file with N being the log2(m), lastly return the value of the integer decoded, this is not true when m is not a power of 2 since we need to do some more calculations
+	   	//! Decode the video encoded in the file, switch to decide with preditor encoding was used after a initial read of the header
 	   	int decode(){
 	   		Mat result;
 			Mat m1;
@@ -183,7 +183,6 @@ class LosslessEncoder {
 	   		vector<Mat> channels ;
 	   		int fra = p->get_frames();
 	   		int mode = p->get_type();
-			/// JUntar de novo todos os planos
 			switch (mode){
 	   			case 0:
 					for(int b = 0; b<fra;b++){
@@ -300,12 +299,7 @@ class LosslessEncoder {
 	   				
 	   		}
 	   		return 1;
-	   	}
-	   	
-	   	//! simply close the write stream considering we mingh not encode a number of bits multiple of 8
-	   	void close(){
-	   	}
-		
+	   	}	
 };
 
 

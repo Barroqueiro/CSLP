@@ -1,5 +1,5 @@
-/*! \file TestGolombDecodeN.cpp
- *	\brief Just some quick tests for the Golomb class 
+/*! \file TestDecode.cpp
+ *	\brief Decode a video by passing the file it was encoded to
  *	       
  *	
  *

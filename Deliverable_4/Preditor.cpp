@@ -1,5 +1,5 @@
 /*! \file Preditor.cpp
- *	\brief Class to encode and decode Golomb code
+ *	\brief Class to encode and decode frames from a video based on with predictive tecnique was used
  *	      
  *	
  *
@@ -27,21 +27,24 @@ using namespace std;
 class Preditor {
 	private:
 		int m/*! Paramter m for the Glomb code */;
-		int type/*! Flag to signal if we are reading or writing */;
-		int typeVideo;
-		int n_frames;
-		int linhas;
-		int colunas;
-		int start;
-		Golomb *g;
-		WBitStream *wbs;
+		int type/*! type of the predictor */;
+		int typeVideo/*! type of the video */;
+		int n_frames/*! Number of frames of the video to be decoded*/;
+		int linhas/*! Height of the frame we are decoding */;
+		int colunas/*! Width of the frame we are decoding */;
+		int start/*! Signaling if we are encoding from the start so we can write some more information on the header*/;
+		Golomb *g/*! Pointer to a golomb encoder to write/read the values we get from the preditor */;
+		WBitStream *wbs/*! Write Bit stream to write the header to the file when we are encoding */;
 	public: 
 	
-	   	//! A constructor, Initiates the type of BitStream considering the flag, and atributes value to the class atributes
+	   	//! A constructor, Initiates the atributes, if we are encoding then we match the elements passed to the respective atributes of the class, if we are decoding we set these atributes by reading the header of the file
 	    /*!
 	      \param file A string with the name of the file
 	      \param M Parameter m for the golomb code
-	      \param Flag Flag to signal if we are reading(0) or Writing(1)
+	      \param type type of the predictor
+	      \param typeVideo type of the video
+	      \param n_f number of frames we are encoding
+	      \param flag flag to signal if we are encoding of decoding
 	    */
 	   	Preditor(int Type, int M,string file,int TypeVideo,int n_f,int flag){
 	   		if (flag == 1){// Encoding
@@ -73,13 +76,12 @@ class Preditor {
 		   		rbs.close();
 		   		g = new Golomb(file,m,0);
 				g->SkipNBytes(15);
-				//cout << g->decode() << endl;
 		   	}
 	   	}
 	   	
 	   	//! Encode de number passed as a parameter, calculating the quotient and the remainder and ecoding inunary and binary respectively depending on the value of m
 	    /*!
-	      \param n The number to encode
+	      \param f Mat type object to encode to the file
 	    */
 	    
 	    	int get_frames(){
@@ -90,7 +92,10 @@ class Preditor {
 	    		return type;
 	    	}
 	    	
-	    	
+	    //! Encode de frame passed as a parameter by predicting encoding from JPEG1
+	    /*!
+	      \param f Mat type object to encode to the file
+	    */
 	   	void encodeJPEG1(Mat f){
 	   		int lin = f.rows;
 	   		int col = f.cols;
@@ -127,18 +132,16 @@ class Preditor {
 					}
 					pixel = (int) f.at<uchar>(c,i);
 					g->encode(pixel-lastPixel);
-					//if(count < 57){
-					//	cout << pixel-lastPixel << endl;
-					//}
 					res.at<uchar>(c,i) = (unsigned char) (pixel-lastPixel);
 					count++;
 				}
 			}
-			//cout << f << endl;
-			//imshow("wtf",f);
-			//waitKey(0);
 	   	}
 	   	
+	   //! Encode de frame passed as a parameter by predicting encoding from JPEG2
+	    /*!
+	      \param f Mat type object to encode to the file
+	    */
 	   	void encodeJPEG2(Mat f){
 	   		int lin = f.rows;
 	   		int col = f.cols;
@@ -175,18 +178,16 @@ class Preditor {
 					}
 					pixel = (int) f.at<uchar>(c,i);
 					g->encode(pixel-lastPixel);
-					//if(count < 57){
-					//	cout << pixel-lastPixel << endl;
-					//}
 					res.at<uchar>(c,i) = (unsigned char) (pixel-lastPixel);
 					count++;
 				}
 			}
-			//cout << f << endl;
-			//imshow("wtf",f);
-			//waitKey(0);
 	   	}
 	   	
+	   //! Encode de frame passed as a parameter by predicting encoding from JPEG3
+	    /*!
+	      \param f Mat type object to encode to the file
+	    */
 	   	void encodeJPEG3(Mat f){
 	   		int lin = f.rows;
 	   		int col = f.cols;
@@ -223,18 +224,16 @@ class Preditor {
 					}
 					pixel = (int) f.at<uchar>(c,i);
 					g->encode(pixel-lastPixel);
-					//if(count < 57){
-					//	cout << pixel-lastPixel << endl;
-					//}
 					res.at<uchar>(c,i) = (unsigned char) (pixel-lastPixel);
 					count++;
 				}
 			}
-			//cout << f << endl;
-			//imshow("wtf",f);
-			//waitKey(0);
 	   	}
 	   	
+	   //! Encode de frame passed as a parameter by predicting encoding from JPEG4
+	    /*!
+	      \param f Mat type object to encode to the file
+	    */
 	   	void encodeJPEG4(Mat f){
 	   		int lin = f.rows;
 	   		int col = f.cols;
@@ -285,18 +284,17 @@ class Preditor {
 					}
 					lastPixel = a+b-z;
 					g->encode(pixel-lastPixel);
-					//if (count == 1){
-					//	cout << pixel-lastPixel << endl;
-					//}
 					res.at<uchar>(c,i) = (unsigned char) (pixel-lastPixel);
 					count++;
 				}
 			}
-			//cout << f << endl;
-			//imshow("wtf",f);
-			//waitKey(0);
 	   	}
 	   	
+	   	
+	   //! Encode de frame passed as a parameter by predicting encoding from JPEG5
+	    /*!
+	      \param f Mat type object to encode to the file
+	    */
 	   	void encodeJPEG5(Mat f){
 	   		int lin = f.rows;
 	   		int col = f.cols;
@@ -347,18 +345,17 @@ class Preditor {
 					}
 					lastPixel = a+(b-z)/2;
 					g->encode(pixel-lastPixel);
-					//if (count == 1){
-					//	cout << pixel-lastPixel << endl;
-					//}
 					res.at<uchar>(c,i) = (unsigned char) (pixel-lastPixel);
 					count++;
 				}
 			}
-			//cout << f << endl;
-			//imshow("wtf",f);
-			//waitKey(0);
 	   	}
 	   	
+	   	
+	   //! Encode de frame passed as a parameter by predicting encoding from JPEG6
+	    /*!
+	      \param f Mat type object to encode to the file
+	    */
 	   	void encodeJPEG6(Mat f){
 	   		int lin = f.rows;
 	   		int col = f.cols;
@@ -409,18 +406,16 @@ class Preditor {
 					}
 					lastPixel = b+(a-z)/2;
 					g->encode(pixel-lastPixel);
-					//if (count == 1){
-					//	cout << pixel-lastPixel << endl;
-					//}
 					res.at<uchar>(c,i) = (unsigned char) (pixel-lastPixel);
 					count++;
 				}
 			}
-			//cout << f << endl;
-			//imshow("wtf",f);
-			//waitKey(0);
 	   	}
 	   	
+	   //! Encode de frame passed as a parameter by predicting encoding from JPEG7
+	    /*!
+	      \param f Mat type object to encode to the file
+	    */
 	   	void encodeJPEG7(Mat f){
 	   		int lin = f.rows;
 	   		int col = f.cols;
@@ -471,18 +466,16 @@ class Preditor {
 					}
 					lastPixel = (a+b)/2;
 					g->encode(pixel-lastPixel);
-					//if (count == 1){
-					//	cout << pixel-lastPixel << endl;
-					//}
 					res.at<uchar>(c,i) = (unsigned char) (pixel-lastPixel);
 					count++;
 				}
 			}
-			//cout << f << endl;
-			//imshow("wtf",f);
-			//waitKey(0);
 	   	}
 	   	
+	   //! Encode de frame passed as a parameter by predicting encoding from JPEGLS
+	    /*!
+	      \param f Mat type object to encode to the file
+	    */
 	   	void encodeJPEG_LS(Mat f){
 	   		int lin = f.rows;
 	   		int col = f.cols;
@@ -543,18 +536,13 @@ class Preditor {
 						lastPixel = a+b-z;
 					}
 					g->encode(pixel-lastPixel);
-					//if (count == 1){
-					//	cout << pixel-lastPixel << endl;
-					//}
 					res.at<uchar>(c,i) = (unsigned char) (pixel-lastPixel);
 					count++;
 				}
 			}
-			//cout << f << endl;
-			//imshow("wtf",f);
-			//waitKey(0);
 	   	}
 	   	
+	   	//! Decode the next frame on the file using the predictor from JPEG1
 	   	Mat decodeJPEG1(){
 	   		int lastPixel=0;
 	   		Mat result(linhas,colunas,0);
@@ -567,19 +555,14 @@ class Preditor {
 						lastPixel = 0;
 					}
 					int d = g->decode();
-					//if(count < 57){
-					//	cout << d << endl;
-					//}
 					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
 					count++;				
 				}
 			}
-			//cout << result << endl;
-			//imshow("decode",result);
-			//waitKey(0);
 			return result;
 	   	}
 	   	
+	   	//! Decode the next frame on the file using the predictor from JPEG2
 	   	Mat decodeJPEG2(){
 	   		int lastPixel=0;
 	   		Mat result(linhas,colunas,0);
@@ -599,12 +582,10 @@ class Preditor {
 					count++;				
 				}
 			}
-			//cout << result << endl;
-			//imshow("decode",result);
-			//waitKey(0);
 			return result;
 	   	}
 	   	
+	   	//! Decode the next frame on the file using the predictor from JPEG3
 	   	Mat decodeJPEG3(){
 	   		int lastPixel=0;
 	   		Mat result(linhas,colunas,0);
@@ -617,19 +598,14 @@ class Preditor {
 						lastPixel = 0;
 					}
 					int d = g->decode();
-					//if(count < 57){
-					//	cout << d << endl;
-					//}
 					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
 					count++;				
 				}
 			}
-			//cout << result << endl;
-			//imshow("decode",result);
-			//waitKey(0);
 			return result;
 	   	}
 	   	
+	   	//! Decode the next frame on the file using the predictor from JPEG4
 	   	Mat decodeJPEG4(){
 	   		int lastPixel=0;
 	   		Mat result(linhas,colunas,0);
@@ -656,19 +632,14 @@ class Preditor {
 					}
 					lastPixel = a+b-z;
 					int d = g->decode();
-					//if(count == 1){
-					//	cout << d << endl;
-					//}
 					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
 					count++;				
 				}
 			}
-			//cout << result << endl;
-			//imshow("decode",result);
-			//waitKey(0);
 			return result;
 	   	}
 	   	
+	   	//! Decode the next frame on the file using the predictor from JPEG5
 	   	Mat decodeJPEG5(){
 	   		int lastPixel=0;
 	   		Mat result(linhas,colunas,0);
@@ -695,19 +666,14 @@ class Preditor {
 					}
 					lastPixel = a+(b-z)/2;
 					int d = g->decode();
-					//if(count == 1){
-					//	cout << d << endl;
-					//}
 					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
 					count++;				
 				}
 			}
-			//cout << result << endl;
-			//imshow("decode",result);
-			//waitKey(0);
 			return result;
 	   	}
 	   	
+	   	//! Decode the next frame on the file using the predictor from JPEG6
 	   	Mat decodeJPEG6(){
 	   		int lastPixel=0;
 	   		Mat result(linhas,colunas,0);
@@ -734,19 +700,14 @@ class Preditor {
 					}
 					lastPixel = b+(a-z)/2;
 					int d = g->decode();
-					//if(count == 1){
-					//	cout << d << endl;
-					//}
 					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
 					count++;				
 				}
 			}
-			//cout << result << endl;
-			//imshow("decode",result);
-			//waitKey(0);
 			return result;
 	   	}
 	   	
+	   	//! Decode the next frame on the file using the predictor from JPEG7
 	   	Mat decodeJPEG7(){
 	   		int lastPixel=0;
 	   		Mat result(linhas,colunas,0);
@@ -773,19 +734,14 @@ class Preditor {
 					}
 					lastPixel = (a+b)/2;
 					int d = g->decode();
-					//if(count == 1){
-					//	cout << d << endl;
-					//}
 					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
 					count++;				
 				}
 			}
-			//cout << result << endl;
-			//imshow("decode",result);
-			//waitKey(0);
 			return result;
 	   	}
 	   	
+	   	//! Decode the next frame on the file using the predictor from JPEGLS
 	   	Mat decodeJPEGLS(){
 	   		int lastPixel=0;
 	   		Mat result(linhas,colunas,0);
@@ -822,24 +778,12 @@ class Preditor {
 						lastPixel = a+b-z;
 					}
 					int d = g->decode();
-					//if(count == 1){
-					//	cout << d << endl;
-					//}
 					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
 					count++;				
 				}
 			}
-			//cout << result << endl;
-			//imshow("decode",result);
-			//waitKey(0);
 			return result;
 	   	}
-	   	
-	   	
-	   	//! simply close the write stream considering we mingh not encode a number of bits multiple of 8
-	   	void close(){
-	   	}
-		
 };
 
 
