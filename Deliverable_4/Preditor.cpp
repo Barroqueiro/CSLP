@@ -484,40 +484,52 @@ class Preditor {
 	   	}
 	   	
 	   	void encodeJPEG_LS(Mat f){
-	   		int col = f.size().width;
-	   		int lin = f.size().height;
+	   		int lin = f.rows;
+	   		int col = f.cols;
 	   		if (start == 1){
-		   		string width  = to_string(lin);
-		   		string height = to_string(col);
+		   		string width  = to_string(col);
+		   		string height = to_string(lin);
+		   		string frames = to_string(n_frames);
 		   		for (int w = 0; w < 4-width.length();w++){
 		   			width = "0"+width;
 		   		}
 		   		for (int h = 0; h < 4-height.length();h++){
 		   			height = "0"+height;
 		   		}
+		   		for (int f = 0; f < 4-frames.length();f++){
+		   			frames = "0"+frames;
+		   		}
+		   		wbs->writeString(width);
+		   		wbs->writeString(height);
+		   		wbs->writeString(frames);
+		   		cout << "Processing video" << endl;
+		   		start=0;
 			}
 			int pixel;
-			int lastPixel;
-			int a=0;
-			int b=0;
-			int z=0;
+			int lastPixel = 0;
+			int ind = 1;
+			Mat res(lin,col,0);
+			int count=0;
+			int a;
+			int b;
+			int z;
 			int maximo;
 			int minimo;
 			for(int c = 0; c < lin; c++){
 				for(int i = 0; i < col; i++){
-					pixel = f.at<uchar>(Point(c,i));
+					pixel = f.at<uchar>(c,i);
 					if(i-1 >=0){
-						a=f.at<uchar>(Point(c,i-1));
+						a=(int)f.at<uchar>(c,i-1);
 					}else{
 						a=0;
 					}
 					if(c-1 >=0){
-						b=f.at<uchar>(Point(c-1,i));
+						b=(int)f.at<uchar>(c-1,i);
 					}else{
 						b=0;
 					}
 					if(i-1 >=0 && c-1 >=0){
-						z=f.at<uchar>(Point(c-1,i-1));
+						z=(int)f.at<uchar>(c-1,i-1);
 					}else{
 						z=0;
 					}
@@ -531,8 +543,16 @@ class Preditor {
 						lastPixel = a+b-z;
 					}
 					g->encode(pixel-lastPixel);
+					//if (count == 1){
+					//	cout << pixel-lastPixel << endl;
+					//}
+					res.at<uchar>(c,i) = (unsigned char) (pixel-lastPixel);
+					count++;
 				}
 			}
+			//cout << f << endl;
+			//imshow("wtf",f);
+			//waitKey(0);
 	   	}
 	   	
 	   	Mat decodeJPEG1(){
@@ -752,6 +772,55 @@ class Preditor {
 						z=0;
 					}
 					lastPixel = (a+b)/2;
+					int d = g->decode();
+					//if(count == 1){
+					//	cout << d << endl;
+					//}
+					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+					count++;				
+				}
+			}
+			//cout << result << endl;
+			//imshow("decode",result);
+			//waitKey(0);
+			return result;
+	   	}
+	   	
+	   	Mat decodeJPEGLS(){
+	   		int lastPixel=0;
+	   		Mat result(linhas,colunas,0);
+			int count = 0;
+			int a;
+			int b;
+			int z;
+			int maximo;
+			int minimo;
+			for(int c = 0; c < linhas; c++){
+				for(int i = 0; i < colunas; i++){
+					if(i-1 >=0){
+						a=(int)result.at<uchar>(c,i-1);
+					}else{
+						a=0;
+					}
+					if(c-1 >=0){
+						b=(int)result.at<uchar>(c-1,i);
+					}else{
+						b=0;
+					}
+					if(i-1 >=0 && c-1 >=0){
+						z=(int)result.at<uchar>(c-1,i-1);
+					}else{
+						z=0;
+					}
+					maximo = max(a,b);
+					minimo = min(a,b);
+					if(z>= maximo){
+						lastPixel = minimo;					
+					}else if(z <= minimo){
+						lastPixel = maximo;
+					}else{
+						lastPixel = a+b-z;
+					}
 					int d = g->decode();
 					//if(count == 1){
 					//	cout << d << endl;

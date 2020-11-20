@@ -24,17 +24,15 @@ using namespace std;
 
 int main( int argc, char** argv )
 {	
-	//int m_values [3] = {7,8,9};
+	//int m_values [8] = {2,3,4,5,6,7,8,9};
 	//for (int  m:m_values){
-	//	for(int i = 0;i<8;i++){
-	//	LosslessEncoder l(0,i,m,argv[1],1,"Encoded"+to_string(m)+"JPEG"+to_string(i)+".bin");
-	//	l.encode();
-	//	}
+		//for(int i = 0;i<8;i++){
+			LosslessEncoder l(0,7,4,argv[1],1,"Encoded"+to_string(4)+"JPEGLS"+".bin");
+			l.encode();
+		//}
 	//}
-	LosslessEncoder l(0,5,8,argv[1],1,"EncodedT.bin");
-	l.encode();
-	//LosslessEncoder d(0,0,0,argv[1],0,"Encoded7.bin");
-	//d.decode();
+	//LosslessEncoder l(0,7,5,argv[1],1,"EncodedJPEGLS.bin");
+	//l.encode();
 	return 0;
 }
 

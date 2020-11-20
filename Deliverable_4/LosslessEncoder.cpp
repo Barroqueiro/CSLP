@@ -158,7 +158,8 @@ class LosslessEncoder {
 						cap >> frame;
 						count++;
 					}
-	   				break;	   					   					case 7:
+	   				break;	   					   					
+	   			case 7:
 	   				while(!frame.empty()){
 						vector<Mat> planes;
 						split(frame, planes);
@@ -281,11 +282,12 @@ class LosslessEncoder {
 						}
 						cout << "Decoding frame: " << b+1 << endl;
 					}
-	   				break;	   					   					case 7:
+	   				break;	   					   					
+	   			case 7:
 					for(int b = 0; b<fra;b++){
-						m1 = p->decodeJPEG1();
-	   					m2 = p->decodeJPEG1();
-	   					m3 = p->decodeJPEG1();
+						m1 = p->decodeJPEGLS();
+	   					m2 = p->decodeJPEGLS();
+	   					m3 = p->decodeJPEGLS();
 	   					channels = {m1,m2,m3};
 	   					merge(channels,result);
 						imshow("Display",result);
