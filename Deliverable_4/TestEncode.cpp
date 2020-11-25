@@ -1,10 +1,11 @@
 /*! \file TestEncode.cpp
  *	\brief Encode a video file by passing by order : The video file to encode, the type of predictive encoding you want,m param for the golomb code,file to encode to 
  *	       
- *	
+ *	First Flag -> Name of the video file to encode\n
+ *	Second Flag -> Tipo de preditor\n
+ *	Third Flag -> m atribute of the Golomb code\n
+ *	Fourth Flag -> File name to encode to\n
  *
- *	
- *  
  *	Press ESC to exit.
  *
  */

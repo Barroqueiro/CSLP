@@ -1,7 +1,7 @@
 /*! \file TestDecode.cpp
  *	\brief Decode a video by passing the file it was encoded to
  *	       
- *	
+ *	First and only flag -> Name of the file to decode from
  *
  *	
  *  
