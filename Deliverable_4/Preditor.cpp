@@ -34,6 +34,7 @@ class Preditor {
 		int colunas/*! Width of the frame we are decoding */;
 		int start/*! Signaling if we are encoding from the start so we can write some more information on the header*/;
 		Golomb *g/*! Pointer to a golomb encoder to write/read the values we get from the preditor */;
+		int od;
 		WBitStream *wbs/*! Write Bit stream to write the header to the file when we are encoding */;
 	public: 
 	
@@ -56,11 +57,12 @@ class Preditor {
 		   		n_frames = n_f;
 		   		cout << "Write header" << endl;
 		   		wbs = new WBitStream(file);
-		   		wbs->writeNBits(typeVideo,8);
+		   		wbs->writeNBits(TypeVideo,8);
 		   		wbs->writeNBits(type,8);
 		   		wbs->writeNBits(M,8);
 		   	}else{ // Decoding
 		   		RBitStream rbs(file);
+		   		od = 0;
 		   		typeVideo = rbs.readNBits(8);
 		   		type = rbs.readNBits(8);
 		   		m = rbs.readNBits(8);
@@ -90,6 +92,10 @@ class Preditor {
 	    	
 	    	int get_type(){
 	    		return type;
+	    	}
+	    	
+	    	int get_VideoType(){
+	    		return typeVideo;
 	    	}
 	    	
 	    //! Encode de frame passed as a parameter by predicting encoding from JPEG1
@@ -544,19 +550,103 @@ class Preditor {
 	   	
 	   	//! Decode the next frame on the file using the predictor from JPEG1
 	   	Mat decodeJPEG1(){
-	   		int lastPixel=0;
-	   		Mat result(linhas,colunas,0);
-			int count = 0;
-			for(int c = 0; c < linhas; c++){
-				for(int i = 0; i < colunas; i++){
-					if(i-1 >= 0){
-						lastPixel = (int) result.at<uchar>(c,i-1);
-					}else{
-						lastPixel = 0;
+	   		Mat result;
+	   		if (typeVideo == 0){
+		   		int lastPixel=0;
+		   		Mat result(linhas,colunas,0);
+				int count = 0;
+				for(int c = 0; c < linhas; c++){
+					for(int i = 0; i < colunas; i++){
+						if(i-1 >= 0){
+							lastPixel = (int) result.at<uchar>(c,i-1);
+						}else{
+							lastPixel = 0;
+						}
+						int d = g->decode();
+						result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+						count++;				
 					}
-					int d = g->decode();
-					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
-					count++;				
+				}
+				return result;
+			} else if (typeVideo == 1) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(i-1 >= 0){
+								lastPixel = (int) result.at<uchar>(c,i-1);
+							}else{
+								lastPixel = 0;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i+=2){
+							if(i-1 >= 0){
+								lastPixel = (int) result.at<uchar>(c,i-1);
+							}else{
+								lastPixel = 0;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
+				}
+			} else if (typeVideo == 2) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(i-1 >= 0){
+								lastPixel = (int) result.at<uchar>(c,i-1);
+							}else{
+								lastPixel = 0;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c+=2){
+						for(int i = 0; i < colunas; i+=2){
+							if(i-1 >= 0){
+								lastPixel = (int) result.at<uchar>(c,i-1);
+							}else{
+								lastPixel = 0;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
 				}
 			}
 			return result;
@@ -564,22 +654,103 @@ class Preditor {
 	   	
 	   	//! Decode the next frame on the file using the predictor from JPEG2
 	   	Mat decodeJPEG2(){
-	   		int lastPixel=0;
-	   		Mat result(linhas,colunas,0);
-			int count = 0;
-			for(int c = 0; c < linhas; c++){
-				for(int i = 0; i < colunas; i++){
-					if(c-1 >= 0){
-						lastPixel = (int) result.at<uchar>(c-1,i);
-					}else{
-						lastPixel = 0;
+	   		Mat result;
+	   		if (typeVideo == 0){
+		   		int lastPixel=0;
+		   		Mat result(linhas,colunas,0);
+				int count = 0;
+				for(int c = 0; c < linhas; c++){
+					for(int i = 0; i < colunas; i++){
+						if(c-1 >= 0){
+							lastPixel = (int) result.at<uchar>(c-1,i);
+						}else{
+							lastPixel = 0;
+						}
+						int d = g->decode();
+						result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+						count++;				
 					}
-					int d = g->decode();
-					//if(count < 57){
-					//	cout << d << endl;
-					//}
-					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
-					count++;				
+				}
+				return result;
+			} else if (typeVideo == 1) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(c-1 >= 0){
+								lastPixel = (int) result.at<uchar>(c-1,i);
+							}else{
+								lastPixel = 0;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i+=2){
+							if(c-1 >= 0){
+								lastPixel = (int) result.at<uchar>(c-1,i);
+							}else{
+								lastPixel = 0;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
+				}
+			} else if (typeVideo == 2) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(c-1 >= 0){
+								lastPixel = (int) result.at<uchar>(c-1,i);
+							}else{
+								lastPixel = 0;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c+=2){
+						for(int i = 0; i < colunas; i+=2){
+							if(c-1 >= 0){
+								lastPixel = (int) result.at<uchar>(c-1,i);
+							}else{
+								lastPixel = 0;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
 				}
 			}
 			return result;
@@ -587,19 +758,103 @@ class Preditor {
 	   	
 	   	//! Decode the next frame on the file using the predictor from JPEG3
 	   	Mat decodeJPEG3(){
-	   		int lastPixel=0;
-	   		Mat result(linhas,colunas,0);
-			int count = 0;
-			for(int c = 0; c < linhas; c++){
-				for(int i = 0; i < colunas; i++){
-					if(c-1 >= 0 && i-1>=0){
-						lastPixel = (int) result.at<uchar>(c-1,i-1);
-					}else{
-						lastPixel = 0;
+	   		Mat result;
+	   		if (typeVideo == 0){
+		   		int lastPixel=0;
+		   		Mat result(linhas,colunas,0);
+				int count = 0;
+				for(int c = 0; c < linhas; c++){
+					for(int i = 0; i < colunas; i++){
+						if(c-1 >= 0 && i-1>=0){
+							lastPixel = (int) result.at<uchar>(c-1,i-1);
+						}else{
+							lastPixel = 0;
+						}
+						int d = g->decode();
+						result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+						count++;				
 					}
-					int d = g->decode();
-					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
-					count++;				
+				}
+				return result;
+			} else if (typeVideo == 1) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(c-1 >= 0 && i-1>=0){
+								lastPixel = (int) result.at<uchar>(c-1,i-1);
+							}else{
+								lastPixel = 0;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i+=2){
+							if(c-1 >= 0 && i-1>=0){
+								lastPixel = (int) result.at<uchar>(c-1,i-1);
+							}else{
+								lastPixel = 0;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
+				}
+			} else if (typeVideo == 2) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(c-1 >= 0 && i-1>=0){
+								lastPixel = (int) result.at<uchar>(c-1,i-1);
+							}else{
+								lastPixel = 0;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c+=2){
+						for(int i = 0; i < colunas; i+=2){
+							if(c-1 >= 0 && i-1>=0){
+								lastPixel = (int) result.at<uchar>(c-1,i-1);
+							}else{
+								lastPixel = 0;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
 				}
 			}
 			return result;
@@ -607,33 +862,161 @@ class Preditor {
 	   	
 	   	//! Decode the next frame on the file using the predictor from JPEG4
 	   	Mat decodeJPEG4(){
-	   		int lastPixel=0;
-	   		Mat result(linhas,colunas,0);
-			int count = 0;
-			int a;
+	   		Mat result;
+	   		int a;
 			int b;
 			int z;
-			for(int c = 0; c < linhas; c++){
-				for(int i = 0; i < colunas; i++){
-					if(i-1 >=0){
-						a=(int)result.at<uchar>(c,i-1);
-					}else{
-						a=0;
+	   		if (typeVideo == 0){
+		   		int lastPixel=0;
+		   		Mat result(linhas,colunas,0);
+				int count = 0;
+				for(int c = 0; c < linhas; c++){
+					for(int i = 0; i < colunas; i++){
+						if(i-1 >=0){
+							a=(int)result.at<uchar>(c,i-1);
+						}else{
+							a=0;
+						}
+						if(c-1 >=0){
+							b=(int)result.at<uchar>(c-1,i);
+						}else{
+							b=0;
+						}
+						if(i-1 >=0 && c-1 >=0){
+							z=(int)result.at<uchar>(c-1,i-1);
+						}else{
+							z=0;
+						}
+						lastPixel = a+b-z;
+						int d = g->decode();
+						result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+						count++;				
 					}
-					if(c-1 >=0){
-						b=(int)result.at<uchar>(c-1,i);
-					}else{
-						b=0;
+				}
+				return result;
+			} else if (typeVideo == 1) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = a+b-z;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
 					}
-					if(i-1 >=0 && c-1 >=0){
-						z=(int)result.at<uchar>(c-1,i-1);
-					}else{
-						z=0;
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i+=2){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = a+b-z;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
 					}
-					lastPixel = a+b-z;
-					int d = g->decode();
-					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
-					count++;				
+					od++;
+					return result;
+				}
+			} else if (typeVideo == 2) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = a+b-z;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c+=2){
+						for(int i = 0; i < colunas; i+=2){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = a+b-z;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
 				}
 			}
 			return result;
@@ -641,33 +1024,161 @@ class Preditor {
 	   	
 	   	//! Decode the next frame on the file using the predictor from JPEG5
 	   	Mat decodeJPEG5(){
-	   		int lastPixel=0;
-	   		Mat result(linhas,colunas,0);
-			int count = 0;
-			int a;
+	   		Mat result;
+	   		int a;
 			int b;
 			int z;
-			for(int c = 0; c < linhas; c++){
-				for(int i = 0; i < colunas; i++){
-					if(i-1 >=0){
-						a=(int)result.at<uchar>(c,i-1);
-					}else{
-						a=0;
+	   		if (typeVideo == 0){
+		   		int lastPixel=0;
+		   		Mat result(linhas,colunas,0);
+				int count = 0;
+				for(int c = 0; c < linhas; c++){
+					for(int i = 0; i < colunas; i++){
+						if(i-1 >=0){
+							a=(int)result.at<uchar>(c,i-1);
+						}else{
+							a=0;
+						}
+						if(c-1 >=0){
+							b=(int)result.at<uchar>(c-1,i);
+						}else{
+							b=0;
+						}
+						if(i-1 >=0 && c-1 >=0){
+							z=(int)result.at<uchar>(c-1,i-1);
+						}else{
+							z=0;
+						}
+						lastPixel = a+(b-z)/2;
+						int d = g->decode();
+						result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+						count++;				
 					}
-					if(c-1 >=0){
-						b=(int)result.at<uchar>(c-1,i);
-					}else{
-						b=0;
+				}
+				return result;
+			} else if (typeVideo == 1) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = a+(b-z)/2;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
 					}
-					if(i-1 >=0 && c-1 >=0){
-						z=(int)result.at<uchar>(c-1,i-1);
-					}else{
-						z=0;
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i+=2){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = a+(b-z)/2;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
 					}
-					lastPixel = a+(b-z)/2;
-					int d = g->decode();
-					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
-					count++;				
+					od++;
+					return result;
+				}
+			} else if (typeVideo == 2) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = a+(b-z)/2;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c+=2){
+						for(int i = 0; i < colunas; i+=2){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = a+(b-z)/2;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
 				}
 			}
 			return result;
@@ -675,33 +1186,161 @@ class Preditor {
 	   	
 	   	//! Decode the next frame on the file using the predictor from JPEG6
 	   	Mat decodeJPEG6(){
-	   		int lastPixel=0;
-	   		Mat result(linhas,colunas,0);
-			int count = 0;
-			int a;
+	   		Mat result;
+	   		int a;
 			int b;
 			int z;
-			for(int c = 0; c < linhas; c++){
-				for(int i = 0; i < colunas; i++){
-					if(i-1 >=0){
-						a=(int)result.at<uchar>(c,i-1);
-					}else{
-						a=0;
+	   		if (typeVideo == 0){
+		   		int lastPixel=0;
+		   		Mat result(linhas,colunas,0);
+				int count = 0;
+				for(int c = 0; c < linhas; c++){
+					for(int i = 0; i < colunas; i++){
+						if(i-1 >=0){
+							a=(int)result.at<uchar>(c,i-1);
+						}else{
+							a=0;
+						}
+						if(c-1 >=0){
+							b=(int)result.at<uchar>(c-1,i);
+						}else{
+							b=0;
+						}
+						if(i-1 >=0 && c-1 >=0){
+							z=(int)result.at<uchar>(c-1,i-1);
+						}else{
+							z=0;
+						}
+						lastPixel = b+(a-z)/2;
+						int d = g->decode();
+						result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+						count++;				
 					}
-					if(c-1 >=0){
-						b=(int)result.at<uchar>(c-1,i);
-					}else{
-						b=0;
+				}
+				return result;
+			} else if (typeVideo == 1) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = b+(a-z)/2;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
 					}
-					if(i-1 >=0 && c-1 >=0){
-						z=(int)result.at<uchar>(c-1,i-1);
-					}else{
-						z=0;
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i+=2){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = b+(a-z)/2;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
 					}
-					lastPixel = b+(a-z)/2;
-					int d = g->decode();
-					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
-					count++;				
+					od++;
+					return result;
+				}
+			} else if (typeVideo == 2) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = b+(a-z)/2;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c+=2){
+						for(int i = 0; i < colunas; i+=2){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = b+(a-z)/2;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
 				}
 			}
 			return result;
@@ -709,33 +1348,161 @@ class Preditor {
 	   	
 	   	//! Decode the next frame on the file using the predictor from JPEG7
 	   	Mat decodeJPEG7(){
-	   		int lastPixel=0;
-	   		Mat result(linhas,colunas,0);
-			int count = 0;
-			int a;
+	   		Mat result;
+	   		int a;
 			int b;
 			int z;
-			for(int c = 0; c < linhas; c++){
-				for(int i = 0; i < colunas; i++){
-					if(i-1 >=0){
-						a=(int)result.at<uchar>(c,i-1);
-					}else{
-						a=0;
+	   		if (typeVideo == 0){
+		   		int lastPixel=0;
+		   		Mat result(linhas,colunas,0);
+				int count = 0;
+				for(int c = 0; c < linhas; c++){
+					for(int i = 0; i < colunas; i++){
+						if(i-1 >=0){
+							a=(int)result.at<uchar>(c,i-1);
+						}else{
+							a=0;
+						}
+						if(c-1 >=0){
+							b=(int)result.at<uchar>(c-1,i);
+						}else{
+							b=0;
+						}
+						if(i-1 >=0 && c-1 >=0){
+							z=(int)result.at<uchar>(c-1,i-1);
+						}else{
+							z=0;
+						}
+						lastPixel = (a+b)/2;
+						int d = g->decode();
+						result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+						count++;				
 					}
-					if(c-1 >=0){
-						b=(int)result.at<uchar>(c-1,i);
-					}else{
-						b=0;
+				}
+				return result;
+			} else if (typeVideo == 1) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = (a+b)/2;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
 					}
-					if(i-1 >=0 && c-1 >=0){
-						z=(int)result.at<uchar>(c-1,i-1);
-					}else{
-						z=0;
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i+=2){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = (a+b)/2;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
 					}
-					lastPixel = (a+b)/2;
-					int d = g->decode();
-					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
-					count++;				
+					od++;
+					return result;
+				}
+			} else if (typeVideo == 2) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = (a+b)/2;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c+=2){
+						for(int i = 0; i < colunas; i+=2){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							lastPixel = (a+b)/2;
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
 				}
 			}
 			return result;
@@ -743,43 +1510,204 @@ class Preditor {
 	   	
 	   	//! Decode the next frame on the file using the predictor from JPEGLS
 	   	Mat decodeJPEGLS(){
-	   		int lastPixel=0;
-	   		Mat result(linhas,colunas,0);
-			int count = 0;
-			int a;
+	   		Mat result;
+	   		int lastPixel = 0;
+	   		int a;
 			int b;
 			int z;
 			int maximo;
 			int minimo;
-			for(int c = 0; c < linhas; c++){
-				for(int i = 0; i < colunas; i++){
-					if(i-1 >=0){
-						a=(int)result.at<uchar>(c,i-1);
-					}else{
-						a=0;
+	   		if (typeVideo == 0){
+		   		int lastPixel=0;
+		   		Mat result(linhas,colunas,0);
+				int count = 0;
+				for(int c = 0; c < linhas; c++){
+					for(int i = 0; i < colunas; i++){
+						if(i-1 >=0){
+							a=(int)result.at<uchar>(c,i-1);
+						}else{
+							a=0;
+						}
+						if(c-1 >=0){
+							b=(int)result.at<uchar>(c-1,i);
+						}else{
+							b=0;
+						}
+						if(i-1 >=0 && c-1 >=0){
+							z=(int)result.at<uchar>(c-1,i-1);
+						}else{
+							z=0;
+						}
+						maximo = max(a,b);
+						minimo = min(a,b);
+						if(z>= maximo){
+							lastPixel = minimo;					
+						}else if(z <= minimo){
+							lastPixel = maximo;
+						}else{
+							lastPixel = a+b-z;
+						}
+						int d = g->decode();
+						result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+						count++;				
 					}
-					if(c-1 >=0){
-						b=(int)result.at<uchar>(c-1,i);
-					}else{
-						b=0;
+				}
+				return result;
+			} else if (typeVideo == 1) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							maximo = max(a,b);
+							minimo = min(a,b);
+							if(z>= maximo){
+								lastPixel = minimo;					
+							}else if(z <= minimo){
+								lastPixel = maximo;
+							}else{
+								lastPixel = a+b-z;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
 					}
-					if(i-1 >=0 && c-1 >=0){
-						z=(int)result.at<uchar>(c-1,i-1);
-					}else{
-						z=0;
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i+=2){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							maximo = max(a,b);
+							minimo = min(a,b);
+							if(z>= maximo){
+								lastPixel = minimo;					
+							}else if(z <= minimo){
+								lastPixel = maximo;
+							}else{
+								lastPixel = a+b-z;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
 					}
-					maximo = max(a,b);
-					minimo = min(a,b);
-					if(z>= maximo){
-						lastPixel = minimo;					
-					}else if(z <= minimo){
-						lastPixel = maximo;
-					}else{
-						lastPixel = a+b-z;
+					od++;
+					return result;
+				}
+			} else if (typeVideo == 2) {
+				if (od % 3 == 0){
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c++){
+						for(int i = 0; i < colunas; i++){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							maximo = max(a,b);
+							minimo = min(a,b);
+							if(z>= maximo){
+								lastPixel = minimo;					
+							}else if(z <= minimo){
+								lastPixel = maximo;
+							}else{
+								lastPixel = a+b-z;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
 					}
-					int d = g->decode();
-					result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
-					count++;				
+					od++;
+					return result;
+				}else if (od % 3 == 1 || od % 3 == 2) {
+					int lastPixel=0;
+		   			Mat result(linhas,colunas,0);
+					int count = 0;
+					for(int c = 0; c < linhas; c+=2){
+						for(int i = 0; i < colunas; i+=2){
+							if(i-1 >=0){
+								a=(int)result.at<uchar>(c,i-1);
+							}else{
+								a=0;
+							}
+							if(c-1 >=0){
+								b=(int)result.at<uchar>(c-1,i);
+							}else{
+								b=0;
+							}
+							if(i-1 >=0 && c-1 >=0){
+								z=(int)result.at<uchar>(c-1,i-1);
+							}else{
+								z=0;
+							}
+							maximo = max(a,b);
+							minimo = min(a,b);
+							if(z>= maximo){
+								lastPixel = minimo;					
+							}else if(z <= minimo){
+								lastPixel = maximo;
+							}else{
+								lastPixel = a+b-z;
+							}
+							int d = g->decode();
+							result.at<uchar>(c,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c,i+1) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i) = (unsigned char) (d+lastPixel);
+							result.at<uchar>(c+1,i+1) = (unsigned char) (d+lastPixel);
+							count++;				
+						}
+					}
+					od++;
+					return result;
 				}
 			}
 			return result;

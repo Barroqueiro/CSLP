@@ -5,6 +5,7 @@
  *	Second Flag -> Tipo de preditor\n
  *	Third Flag -> m atribute of the Golomb code\n
  *	Fourth Flag -> File name to encode to\n
+ *	Fifth Flag -> Type of the video
  *
  *	Press ESC to exit.
  *
@@ -33,7 +34,7 @@ int main( int argc, char** argv )
 			//l.encode();
 		//}
 	//}
-	LosslessEncoder l(0,stoi(argv[2]),stoi(argv[3]),argv[1],1,argv[4]);
+	LosslessEncoder l(stoi(argv[5]),stoi(argv[2]),stoi(argv[3]),argv[1],1,argv[4]);
 	l.encode();
 	return 0;
 }

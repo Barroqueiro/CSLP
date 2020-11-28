@@ -64,7 +64,7 @@ class LosslessEncoder {
 	   		}else{
 	   			p = new Preditor(0,0,outFile,0,0,0);
 	   		}
-	   		cout << "aa" << endl;
+
 	   	}
 	   	
 	   	//! Encode the video passed as a paramter, switch to decide witch function of the preditor will be used based on with prediting encoding we want
@@ -78,10 +78,44 @@ class LosslessEncoder {
 	   			case 0:
 	   				while(!frame.empty()){
 						vector<Mat> planes;
-						split(frame, planes);
-						p->encodeJPEG1(planes[0]);
-						p->encodeJPEG1(planes[1]);
-						p->encodeJPEG1(planes[2]);
+						if (type == 0) {
+							split(frame, planes);
+							p->encodeJPEG1(planes[0]);
+							p->encodeJPEG1(planes[1]);
+							p->encodeJPEG1(planes[2]);
+						} else if (type == 1){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas,colunas/2,0);
+							Mat result2(linhas,colunas/2,0);
+							for(int c = 0; c < linhas; c++){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG1(planes[0]);
+							p->encodeJPEG1(result1);
+							p->encodeJPEG1(result2);
+						}else if (type == 2){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas/2,colunas/2,0);
+							Mat result2(linhas/2,colunas/2,0);
+							for(int c = 0; c < linhas; c+=2){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c/2,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c/2,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG1(planes[0]);
+							p->encodeJPEG1(result1);
+							p->encodeJPEG1(result2);
+						}
 						cap >> frame;
 						cout << "Encoding Frame: "<< count << endl;
 						count++;
@@ -90,10 +124,44 @@ class LosslessEncoder {
 	   			case 1:
 	   				while(!frame.empty()){
 						vector<Mat> planes;
-						split(frame, planes);
-						p->encodeJPEG2(planes[0]);
-						p->encodeJPEG2(planes[1]);
-						p->encodeJPEG2(planes[2]);
+						if (type == 0) {
+							split(frame, planes);
+							p->encodeJPEG2(planes[0]);
+							p->encodeJPEG2(planes[1]);
+							p->encodeJPEG2(planes[2]);
+						} else if (type == 1){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas,colunas/2,0);
+							Mat result2(linhas,colunas/2,0);
+							for(int c = 0; c < linhas; c++){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG2(planes[0]);
+							p->encodeJPEG2(result1);
+							p->encodeJPEG2(result2);
+						}else if (type == 2){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas/2,colunas/2,0);
+							Mat result2(linhas/2,colunas/2,0);
+							for(int c = 0; c < linhas; c+=2){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c/2,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c/2,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG2(planes[0]);
+							p->encodeJPEG2(result1);
+							p->encodeJPEG2(result2);
+						}
 						cap >> frame;
 						cout << "Encoding Frame: "<< count << endl;
 						count++;
@@ -102,10 +170,44 @@ class LosslessEncoder {
 		   		case 2:
 	   				while(!frame.empty()){
 						vector<Mat> planes;
-						split(frame, planes);
-						p->encodeJPEG3(planes[0]);
-						p->encodeJPEG3(planes[1]);
-						p->encodeJPEG3(planes[2]);
+						if (type == 0) {
+							split(frame, planes);
+							p->encodeJPEG3(planes[0]);
+							p->encodeJPEG3(planes[1]);
+							p->encodeJPEG3(planes[2]);
+						} else if (type == 1){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas,colunas/2,0);
+							Mat result2(linhas,colunas/2,0);
+							for(int c = 0; c < linhas; c++){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG3(planes[0]);
+							p->encodeJPEG3(result1);
+							p->encodeJPEG3(result2);
+						}else if (type == 2){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas/2,colunas/2,0);
+							Mat result2(linhas/2,colunas/2,0);
+							for(int c = 0; c < linhas; c+=2){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c/2,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c/2,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG3(planes[0]);
+							p->encodeJPEG3(result1);
+							p->encodeJPEG3(result2);
+						}
 						cap >> frame;
 						cout << "Encoding Frame: "<< count << endl;
 						count++;
@@ -114,60 +216,231 @@ class LosslessEncoder {
 	  	   		case 3:
 	   				while(!frame.empty()){
 						vector<Mat> planes;
-						split(frame, planes);
-						p->encodeJPEG4(planes[0]);
-						p->encodeJPEG4(planes[1]);
-						p->encodeJPEG4(planes[2]);
-						cout << "Encoding Frame: "<< count << endl;
+						if (type == 0) {
+							split(frame, planes);
+							p->encodeJPEG4(planes[0]);
+							p->encodeJPEG4(planes[1]);
+							p->encodeJPEG4(planes[2]);
+						} else if (type == 1){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas,colunas/2,0);
+							Mat result2(linhas,colunas/2,0);
+							for(int c = 0; c < linhas; c++){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG4(planes[0]);
+							p->encodeJPEG4(result1);
+							p->encodeJPEG4(result2);
+						}else if (type == 2){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas/2,colunas/2,0);
+							Mat result2(linhas/2,colunas/2,0);
+							for(int c = 0; c < linhas; c+=2){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c/2,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c/2,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG4(planes[0]);
+							p->encodeJPEG4(result1);
+							p->encodeJPEG4(result2);
+						}
 						cap >> frame;
+						cout << "Encoding Frame: "<< count << endl;
 						count++;
 					}
 	   				break;
 		   		case 4:
 	   				while(!frame.empty()){
 						vector<Mat> planes;
-						split(frame, planes);
-						p->encodeJPEG5(planes[0]);
-						p->encodeJPEG5(planes[1]);
-						p->encodeJPEG5(planes[2]);
-						cout << "Encoding Frame: "<< count << endl;
+						if (type == 0) {
+							split(frame, planes);
+							p->encodeJPEG5(planes[0]);
+							p->encodeJPEG5(planes[1]);
+							p->encodeJPEG5(planes[2]);
+						} else if (type == 1){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas,colunas/2,0);
+							Mat result2(linhas,colunas/2,0);
+							for(int c = 0; c < linhas; c++){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG5(planes[0]);
+							p->encodeJPEG5(result1);
+							p->encodeJPEG5(result2);
+						}else if (type == 2){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas/2,colunas/2,0);
+							Mat result2(linhas/2,colunas/2,0);
+							for(int c = 0; c < linhas; c+=2){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c/2,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c/2,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG5(planes[0]);
+							p->encodeJPEG5(result1);
+							p->encodeJPEG5(result2);
+						}
 						cap >> frame;
+						cout << "Encoding Frame: "<< count << endl;
 						count++;
 					}
 	   				break;
 	  			case 5:
 	   				while(!frame.empty()){
 						vector<Mat> planes;
-						split(frame, planes);
-						p->encodeJPEG6(planes[0]);
-						p->encodeJPEG6(planes[1]);
-						p->encodeJPEG6(planes[2]);
-						cout << "Encoding Frame: "<< count << endl;
+						if (type == 0) {
+							split(frame, planes);
+							p->encodeJPEG6(planes[0]);
+							p->encodeJPEG6(planes[1]);
+							p->encodeJPEG6(planes[2]);
+						} else if (type == 1){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas,colunas/2,0);
+							Mat result2(linhas,colunas/2,0);
+							for(int c = 0; c < linhas; c++){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG6(planes[0]);
+							p->encodeJPEG6(result1);
+							p->encodeJPEG6(result2);
+						}else if (type == 2){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas/2,colunas/2,0);
+							Mat result2(linhas/2,colunas/2,0);
+							for(int c = 0; c < linhas; c+=2){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c/2,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c/2,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG6(planes[0]);
+							p->encodeJPEG6(result1);
+							p->encodeJPEG6(result2);
+						}
 						cap >> frame;
+						cout << "Encoding Frame: "<< count << endl;
 						count++;
 					}
 	   				break;
  	   			case 6:
 	   				while(!frame.empty()){
 						vector<Mat> planes;
-						split(frame, planes);
-						p->encodeJPEG7(planes[0]);
-						p->encodeJPEG7(planes[1]);
-						p->encodeJPEG7(planes[2]);
-						cout << "Encoding Frame: "<< count << endl;
+						if (type == 0) {
+							split(frame, planes);
+							p->encodeJPEG7(planes[0]);
+							p->encodeJPEG7(planes[1]);
+							p->encodeJPEG7(planes[2]);
+						} else if (type == 1){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas,colunas/2,0);
+							Mat result2(linhas,colunas/2,0);
+							for(int c = 0; c < linhas; c++){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG7(planes[0]);
+							p->encodeJPEG7(result1);
+							p->encodeJPEG7(result2);
+						}else if (type == 2){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas/2,colunas/2,0);
+							Mat result2(linhas/2,colunas/2,0);
+							for(int c = 0; c < linhas; c+=2){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c/2,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c/2,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG7(planes[0]);
+							p->encodeJPEG7(result1);
+							p->encodeJPEG7(result2);
+						}
 						cap >> frame;
+						cout << "Encoding Frame: "<< count << endl;
 						count++;
+
 					}
 	   				break;	   					   					
 	   			case 7:
 	   				while(!frame.empty()){
 						vector<Mat> planes;
-						split(frame, planes);
-						p->encodeJPEG_LS(planes[0]);
-						p->encodeJPEG_LS(planes[1]);
-						p->encodeJPEG_LS(planes[2]);
-						cout << "Encoding Frame: "<< count << endl;
+						if (type == 0) {
+							split(frame, planes);
+							p->encodeJPEG_LS(planes[0]);
+							p->encodeJPEG_LS(planes[1]);
+							p->encodeJPEG_LS(planes[2]);
+						} else if (type == 1){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas,colunas/2,0);
+							Mat result2(linhas,colunas/2,0);
+							for(int c = 0; c < linhas; c++){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG_LS(planes[0]);
+							p->encodeJPEG_LS(result1);
+							p->encodeJPEG_LS(result2);
+						}else if (type == 2){
+							cvtColor(frame, frame, COLOR_RGB2YUV );
+							split(frame, planes);
+							int linhas = planes[0].rows;
+							int colunas = planes[0].cols;
+							Mat result1(linhas/2,colunas/2,0);
+							Mat result2(linhas/2,colunas/2,0);
+							for(int c = 0; c < linhas; c+=2){
+								for(int i = 0; i < colunas; i+=2){
+									result1.at<uchar>(c/2,i/2) = planes[1].at<uchar>(c,i);
+									result2.at<uchar>(c/2,i/2) = planes[2].at<uchar>(c,i);
+								}
+							}
+							p->encodeJPEG_LS(planes[0]);
+							p->encodeJPEG_LS(result1);
+							p->encodeJPEG_LS(result2);
+						}
 						cap >> frame;
+						cout << "Encoding Frame: "<< count << endl;
 						count++;
 					}	   				
 	   				break;
@@ -183,6 +456,7 @@ class LosslessEncoder {
 	   		vector<Mat> channels ;
 	   		int fra = p->get_frames();
 	   		int mode = p->get_type();
+	   		int tipo = p->get_VideoType();
 			switch (mode){
 	   			case 0:
 					for(int b = 0; b<fra;b++){
@@ -190,7 +464,13 @@ class LosslessEncoder {
 	   					m2 = p->decodeJPEG1();
 	   					m3 = p->decodeJPEG1();
 	   					channels = {m1,m2,m3};
+	   					cout << m1.size() << endl;
+	   					cout << m2.size() << endl;
+	   					cout << m3.size() << endl;
 	   					merge(channels,result);
+	   					if (tipo != 0){
+	   						cvtColor(result, result, COLOR_YUV2RGB );
+	   					}
 						imshow("Display",result);
 						if(waitKey(30) >=0){
 							break;
@@ -205,6 +485,9 @@ class LosslessEncoder {
 	   					m3 = p->decodeJPEG2();
 	   					channels = {m1,m2,m3};
 	   					merge(channels,result);
+	   					if (tipo != 0){
+	   						cvtColor(result, result, COLOR_YUV2RGB );
+	   					}
 						imshow("Display",result);
 						if(waitKey(30) >=0){
 							break;
@@ -219,6 +502,9 @@ class LosslessEncoder {
 	   					m3 = p->decodeJPEG3();
 	   					channels = {m1,m2,m3};
 	   					merge(channels,result);
+	   					if (tipo != 0){
+	   						cvtColor(result, result, COLOR_YUV2RGB );
+	   					}
 						imshow("Display",result);
 						if(waitKey(30) >=0){
 							break;
@@ -233,6 +519,9 @@ class LosslessEncoder {
 	   					m3 = p->decodeJPEG4();
 	   					channels = {m1,m2,m3};
 	   					merge(channels,result);
+	   					if (tipo != 0){
+	   						cvtColor(result, result, COLOR_YUV2RGB );
+	   					}
 						imshow("Display",result);
 						if(waitKey(30) >=0){
 							break;
@@ -247,6 +536,9 @@ class LosslessEncoder {
 	   					m3 = p->decodeJPEG5();
 	   					channels = {m1,m2,m3};
 	   					merge(channels,result);
+	   					if (tipo != 0){
+	   						cvtColor(result, result, COLOR_YUV2RGB );
+	   					}
 						imshow("Display",result);
 						if(waitKey(30) >=0){
 							break;
@@ -261,6 +553,9 @@ class LosslessEncoder {
 	   					m3 = p->decodeJPEG6();
 	   					channels = {m1,m2,m3};
 	   					merge(channels,result);
+	   					if (tipo != 0){
+	   						cvtColor(result, result, COLOR_YUV2RGB );
+	   					}
 						imshow("Display",result);
 						if(waitKey(30) >=0){
 							break;
@@ -275,6 +570,9 @@ class LosslessEncoder {
 	   					m3 = p->decodeJPEG7();
 	   					channels = {m1,m2,m3};
 	   					merge(channels,result);
+	   					if (tipo != 0){
+	   						cvtColor(result, result, COLOR_YUV2RGB );
+	   					}
 						imshow("Display",result);
 						if(waitKey(30) >=0){
 							break;
@@ -289,11 +587,14 @@ class LosslessEncoder {
 	   					m3 = p->decodeJPEGLS();
 	   					channels = {m1,m2,m3};
 	   					merge(channels,result);
+	   					if (tipo != 0){
+	   						cvtColor(result, result, COLOR_YUV2RGB );
+	   					}
 						imshow("Display",result);
 						if(waitKey(30) >=0){
 							break;
 						}
-						cout << "Decoding frame: " << b+1 << endl;
+						cout << "Decoding frame zeze: " << b+1 << endl;
 					}   				
 	   				break;
 	   				
