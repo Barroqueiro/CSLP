@@ -464,9 +464,6 @@ class LosslessEncoder {
 	   					m2 = p->decodeJPEG1();
 	   					m3 = p->decodeJPEG1();
 	   					channels = {m1,m2,m3};
-	   					cout << m1.size() << endl;
-	   					cout << m2.size() << endl;
-	   					cout << m3.size() << endl;
 	   					merge(channels,result);
 	   					if (tipo != 0){
 	   						cvtColor(result, result, COLOR_YUV2RGB );
@@ -594,7 +591,7 @@ class LosslessEncoder {
 						if(waitKey(30) >=0){
 							break;
 						}
-						cout << "Decoding frame zeze: " << b+1 << endl;
+						cout << "Decoding frame: " << b+1 << endl;
 					}   				
 	   				break;
 	   				
