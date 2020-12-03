@@ -1,0 +1,2 @@
+bloco_diferente = bloco_frame0-bloco_frame1
+diferença de blocos
