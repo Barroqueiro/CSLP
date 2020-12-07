@@ -15,23 +15,14 @@
 #include <fstream> 
 #include <vector>
 #include <math.h>
-#include "LosslessEncoder.cpp"
+#include "LosslessHybrid.cpp"
 
 using namespace std;
 
 
-
 int main( int argc, char** argv )
 {	
-	LosslessEncoder d(0,0,0,"",0,argv[1]);
+	LosslessHybrid d("",0,0,0,0,0,0,0);
 	d.decode();
 	return 0;
 }
-
-
-
-
-
-
-
-

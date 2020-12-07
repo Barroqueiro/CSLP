@@ -84,9 +84,12 @@ class Preditor {
 		   		cout << "colunas: " << colunas << endl;
 		   		cout << "linhas: " << linhas<< endl;
 		   		cout << "n_frames: " << n_frames<< endl;
+		   		cout << "Search space: " << search_space << endl;
+		   		cout << "Block size: " << block_size << endl;
 		   		rbs.close();
 		   		g = new Golomb(file,m,0);
-				g->SkipNBytes(15);
+				g->SkipNBytes(17);
+				//cout << g ->decode() << endl;
 		   	}
 	   	}
 	   	
@@ -110,6 +113,7 @@ class Preditor {
 	    	void set_last_frame(vector<Mat> planes){
 			lastFrame = planes;
 	    	}
+	    	
 	    	
 	    	void encode_by_blocks(vector<Mat> planes){
 	    		cout << "Encoding frame by blocks" << endl;
@@ -156,8 +160,8 @@ class Preditor {
 							}
 						}
 						lastSum = 10000;
-						g->encode(d_x);
-						g->encode(d_y);
+						g->encode(c-d_x);
+						g->encode(i-d_y);
 						//cout << "Current block" << endl;
 						//cout << c << "," << i << endl;
 						//cout << current_block << endl;
@@ -167,8 +171,9 @@ class Preditor {
 						//exit(0);
 						for(int n = 0; n < block_size; n++){
 							for(int m = 0; m < block_size; m++){
+								int z= (int)((int)min_block.at<uchar>(n,m)-(int)current_block.at<uchar>(n,m));
 								//cout << ((int)min_block.at<uchar>(n,m))-((int)current_block.at<uchar>(n,m)) <<endl;
-								g->encode((int)min_block.at<uchar>(n,m)-(int)current_block.at<uchar>(n,m));
+								g->encode(z);
 							}
 						}
 						count_blocks++;
@@ -181,7 +186,193 @@ class Preditor {
 	    	}
 	    	
 	    	vector<Mat> decode_by_blocks(){
-	    		// TODO
+	    	    	vector<Mat> res;
+	    		if (typeVideo == 0){
+	    			Mat m1(linhas,colunas,0);
+	    			Mat m2(linhas,colunas,0);
+	    			Mat m3(linhas,colunas,0);
+	    			Mat current_block;
+	    			int x;
+	    			int y;
+	    			int count = 0;
+	    			for(int c = 0; c < linhas; c+=block_size){
+					for(int i = 0; i < colunas; i+=block_size){
+						x = -(g->decode()-c);
+						y = -(g->decode()-i);
+						current_block = lastFrame[count].colRange(y,y+block_size).rowRange(x,x+block_size);
+						for(int a = 0; a < block_size; a++){
+							for(int b = 0; b < block_size; b++){
+							m1.at<uchar>(c+a,i+b) = (unsigned char)-(g->decode()-(int) current_block.at<uchar>(a,b));							
+							}
+						}				
+					}
+				}
+				count++;
+				for(int c = 0; c < linhas; c+=block_size){
+					for(int i = 0; i < colunas; i+=block_size){
+						x = -(g->decode()-c);
+						y = -(g->decode()-i);
+						current_block = lastFrame[count].colRange(y,y+block_size).rowRange(x,x+block_size);
+						for(int a = 0; a < block_size; a++){
+							for(int b = 0; b < block_size; b++){
+								m2.at<uchar>(c+a,i+b) = (unsigned char)-(g->decode()-(int) current_block.at<uchar>(a,b));
+							}
+						}				
+					}
+				}
+				count++;
+				for(int c = 0; c < linhas; c+=block_size){
+					for(int i = 0; i < colunas; i+=block_size){
+						x = -(g->decode()-c);
+						y = -(g->decode()-i);
+						current_block = lastFrame[count].colRange(y,y+block_size).rowRange(x,x+block_size);
+						for(int a = 0; a < block_size; a++){
+							for(int b = 0; b < block_size; b++){
+								m3.at<uchar>(c+a,i+b) = (unsigned char)-(g->decode()-(int) current_block.at<uchar>(a,b));
+							}
+						}				
+					}
+				}
+				res = {m1,m2,m3};
+	    			
+	    		}else if (typeVideo == 1){
+	    			Mat m1(linhas,colunas,0);
+	    			Mat m2(linhas,colunas,0);
+	    			Mat temp2(linhas,colunas/2,0);
+	    			Mat m3(linhas,colunas,0);
+	    			Mat temp3(linhas,colunas/2,0);
+	    			Mat current_block;
+	    			int x;
+	    			int y;
+	    			int count = 0;
+	    			int decoded;
+	    			int pixel;
+	    			for(int c = 0; c < linhas; c+=block_size){
+					for(int i = 0; i < colunas; i+=block_size){
+						x = -(g->decode()-c);
+						y = -(g->decode()-i);
+						current_block = lastFrame[count].colRange(y,y+block_size).rowRange(x,x+block_size);
+						for(int a = 0; a < block_size; a++){
+							for(int b = 0; b < block_size; b++){
+								m1.at<uchar>(c+a,i+b) = (unsigned char)-(g->decode()-(int) current_block.at<uchar>(a,b));							
+							}
+						}				
+					}
+				}
+				count++;
+				for(int c = 0; c < linhas; c+=block_size){
+					for(int i = 0; i < colunas/2; i+=block_size){
+						x = -(g->decode()-c);
+						y = -(g->decode()-i);
+						current_block = lastFrame[count].colRange(y,y+block_size).rowRange(x,x+block_size);
+						for(int a = 0; a < block_size; a++){
+							for(int b = 0; b < block_size; b++){
+								decoded = g->decode();
+								pixel = -(decoded-((int) current_block.at<uchar>(a,b)));
+								temp2.at<uchar>(c+a,i+b) = (unsigned char)(pixel);
+							}
+						}				
+					}
+				}
+				count++;
+				for(int c = 0; c < linhas; c+=block_size){
+					for(int i = 0; i < colunas/2; i+=block_size){
+						x = -(g->decode()-c);
+						y = -(g->decode()-i);
+						current_block = lastFrame[count].colRange(y,y+block_size).rowRange(x,x+block_size);
+						for(int a = 0; a < block_size; a++){
+							for(int b = 0; b < block_size; b++){
+								decoded = g->decode();
+								pixel = -(decoded-(int) current_block.at<uchar>(a,b));
+								temp3.at<uchar>(c+a,i+b) = (unsigned char)(pixel);
+							}
+						}				
+					}
+				}
+				for(int c = 0; c < linhas; c++){
+					for(int i = 0; i < colunas; i+=2){
+						m2.at<uchar>(c,i) = temp2.at<uchar>(c,i/2);		
+						m2.at<uchar>(c,i+1) = temp2.at<uchar>(c,i/2);		
+						m3.at<uchar>(c,i) = temp3.at<uchar>(c,i/2);		
+						m3.at<uchar>(c,i+1) = temp3.at<uchar>(c,i/2);	
+					}
+				}
+				count++;
+				res = {m1,m2,m3};
+				set_last_frame({m1,temp2,temp3});
+	    			
+	    		}else if (typeVideo == 2){
+	    			Mat m1(linhas,colunas,0);
+	    			Mat m2(linhas,colunas,0);
+	    			Mat temp2(linhas/2,colunas/2,0);
+	    			Mat m3(linhas,colunas,0);
+	    			Mat temp3(linhas/2,colunas/2,0);
+	    			Mat current_block;
+	    			int x;
+	    			int y;
+	    			int count = 0;
+	    			int decoded;
+	    			int pixel;
+	    			for(int c = 0; c < linhas; c+=block_size){
+					for(int i = 0; i < colunas; i+=block_size){
+						x = -(g->decode()-c);
+						y = -(g->decode()-i);
+						current_block = lastFrame[count].colRange(y,y+block_size).rowRange(x,x+block_size);
+						for(int a = 0; a < block_size; a++){
+							for(int b = 0; b < block_size; b++){
+								m1.at<uchar>(c+a,i+b) = (unsigned char)-(g->decode()-(int) current_block.at<uchar>(a,b));							
+							}
+						}				
+					}
+				}
+				count++;
+				for(int c = 0; c < linhas/2; c+=block_size){
+					for(int i = 0; i < colunas/2; i+=block_size){
+						x = -(g->decode()-c);
+						y = -(g->decode()-i);
+						current_block = lastFrame[count].colRange(y,y+block_size).rowRange(x,x+block_size);
+						for(int a = 0; a < block_size; a++){
+							for(int b = 0; b < block_size; b++){
+								decoded = g->decode();
+								pixel = -(decoded-((int) current_block.at<uchar>(a,b)));
+								temp2.at<uchar>(c+a,i+b) = (unsigned char)(pixel);
+							}
+						}				
+					}
+				}
+				count++;
+				for(int c = 0; c < linhas/2; c+=block_size){
+					for(int i = 0; i < colunas/2; i+=block_size){
+						x = -(g->decode()-c);
+						y = -(g->decode()-i);
+						current_block = lastFrame[count].colRange(y,y+block_size).rowRange(x,x+block_size);
+						for(int a = 0; a < block_size; a++){
+							for(int b = 0; b < block_size; b++){
+								decoded = g->decode();
+								pixel = -(decoded-(int) current_block.at<uchar>(a,b));
+								temp3.at<uchar>(c+a,i+b) = (unsigned char)(pixel);
+							}
+						}				
+					}
+				}
+				for(int c = 0; c < linhas; c+=2){
+					for(int i = 0; i < colunas; i+=2){
+						m2.at<uchar>(c,i) = temp2.at<uchar>(c/2,i/2);	
+						m2.at<uchar>(c+1,i) = temp2.at<uchar>(c/2,i/2);	
+						m2.at<uchar>(c,i+1) = temp2.at<uchar>(c/2,i/2);	
+						m2.at<uchar>(c+1,i+1) = temp2.at<uchar>(c/2,i/2);	
+						m3.at<uchar>(c,i) = temp3.at<uchar>(c/2,i/2);	
+						m3.at<uchar>(c+1,i) = temp3.at<uchar>(c/2,i/2);	
+						m3.at<uchar>(c,i+1) = temp3.at<uchar>(c/2,i/2);	
+						m3.at<uchar>(c+1,i+1) = temp3.at<uchar>(c/2,i/2);
+					}
+				}
+				count++;
+				res = {m1,m2,m3};
+				set_last_frame({m1,temp2,temp3});
+	    			
+	    		}
+	    		return res;
 	    	}
 	    	
 	    //! Encode de frame passed as a parameter by predicting encoding from JPEG1
