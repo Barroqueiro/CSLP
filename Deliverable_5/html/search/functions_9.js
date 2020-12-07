@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['skipnbytes_88',['SkipNBytes',['../classGolomb.html#ab41b0a8532ebd5844e65802c2281ce68',1,'Golomb']]]
+  ['set_5flast_5fframe_97',['set_last_frame',['../classPreditor.html#a6046558de8222b2f22fbecbd13dceb00',1,'Preditor']]],
+  ['skipnbytes_98',['SkipNBytes',['../classGolomb.html#ab41b0a8532ebd5844e65802c2281ce68',1,'Golomb']]]
 ];

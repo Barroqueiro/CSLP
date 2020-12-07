@@ -1,5 +1,5 @@
 /*! \file LosslessHybrid.cpp
- *	\brief Class to encode and decode videos
+ *	\brief Class to encode and decode videos by blocks with inter frame encoding
  *	      
  *	
  *
@@ -26,30 +26,32 @@
 using namespace std;
 using namespace cv;
 
-/*! LosslessEncode code class */
+/*! LosslessHybrid code class */
 class LosslessHybrid {
 	private:
-		string File/*! */;
-		int block_size/*! */;
-		int search_space/*! */;
-		int pred/*! */;
-		int type/*! */;
-		int m/*! */;
-		int period/*! */;
-		int flag/*! */;
-		int n_of_current_frame/*! */;
-		Preditor *p/*! */;
+		string File/*! Name of the video file*/;
+		int block_size/*! Block size to use*/;
+		int search_space/*! Search space by block*/;
+		int pred/*! Type of predictor to use*/;
+		int type/*! Type of the video passed*/;
+		int m/*! Paramter m of the golomb code*/;
+		int period/*! Period by which a intra frame is encoded */;
+		int flag/*! FLag to signalize if we are encoding or decoding*/;
+		int n_of_current_frame/*! counter of which frame we are at the momment*/;
+		Preditor *p/*! Predictor instance to be used by thius class*/;
 		
 	public: 
 	
 	   	//! A constructor, Initiates the paramters of the encoder, the values dont realy matter in decoding since tha info comes from the file
 	    /*!
-	      \param file A string with the name of the video file to encode
-	      \param outFile A string with the name of the file to encode to or to decode from
-	      \param M Parameter m for the golomb code
-	      \param Flag Flag to signal if we are encoding(1) or Decoding(0)
-	      \param Type Type of the video
-	      \param Pred predictor to encode or decode frames
+	      \param v Name of the video file
+	      \param bs Block size
+	      \param ss Search space
+	      \param tv Type of the video
+	      \param tp Type of the predictor
+	      \param M Parameter M of the golomb code
+	      \param pe Period to encode a intra frame
+	      \param f flag to decide if we are encoding or decoding
 	    */
 	   	LosslessHybrid(string v, int bs, int ss, int tv, int tp, int M, int pe, int f){
 	   		File = v;
@@ -77,7 +79,7 @@ class LosslessHybrid {
 
 	   	}
 	   	
-	   	//! Encode the video passed as a paramter, switch to decide witch function of the preditor will be used based on with prediting encoding we want
+	   	//! Encode the video passed with block encoding as a paramter, switch to decide witch function of the preditor will be used based on with prediting encoding we want
 	   	void encode(){
 	   		int count = 1;
 	   		Mat frame;
@@ -608,7 +610,8 @@ class LosslessHybrid {
 	   				
 	   		}
 	   	}
-	   	//! Decode the video encoded in the file, switch to decide with preditor encoding was used after a initial read of the header
+	   	
+	   	//! Decode the video by blocks encoded in the file, switch to decide with preditor encoding was used after a initial read of the header
 	   	int decode(){
 	   		Mat result;
 			Mat m1;

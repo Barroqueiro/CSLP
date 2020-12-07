@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Lossless Encoder: CMakeLists.txt File Reference</title>
+<title>Hybrid Encoder: CMakeLists.txt File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,8 +21,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Lossless Encoder
+   <div id="projectname">Hybrid Encoder
    </div>
+   <div id="projectbrief">Encoding/Decoding videos with intra and inter frame specifications</div>
   </td>
  </tr>
  </tbody>
@@ -72,12 +73,12 @@ $(function() {
 Functions</h2></td></tr>
 <tr class="memitem:a7364aa1dcf03f1fddffe928b009e96aa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a7364aa1dcf03f1fddffe928b009e96aa">cmake_minimum_required</a> (VERSION 2.8) project(<a class="el" href="classGolomb.html">Golomb</a>) find_package(OpenCV REQUIRED) include_directories($</td></tr>
 <tr class="separator:a7364aa1dcf03f1fddffe928b009e96aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10428ecfe9f4a709c213a2f6107e927c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a10428ecfe9f4a709c213a2f6107e927c">add_executable</a> (testE TestEncode.cpp LosslessEncoder.cpp Preditor.cpp Golomb.cpp RBitStream.cpp WBitStream.cpp) add_executable(testD TestDecode.cpp LosslessEncoder.cpp Preditor.cpp Golomb.cpp RBitStream.cpp WBitStream.cpp) target_link_libraries(testE $</td></tr>
-<tr class="separator:a10428ecfe9f4a709c213a2f6107e927c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52d6d728317c17956180f242349ef6e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a52d6d728317c17956180f242349ef6e0">add_executable</a> (testE TestEncode.cpp LosslessHybrid.cpp Preditor.cpp Golomb.cpp RBitStream.cpp WBitStream.cpp) add_executable(testD TestDecode.cpp LosslessHybrid.cpp Preditor.cpp Golomb.cpp RBitStream.cpp WBitStream.cpp) target_link_libraries(testE $</td></tr>
+<tr class="separator:a52d6d728317c17956180f242349ef6e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a10428ecfe9f4a709c213a2f6107e927c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10428ecfe9f4a709c213a2f6107e927c">&#9670;&nbsp;</a></span>add_executable()</h2>
+<a id="a52d6d728317c17956180f242349ef6e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52d6d728317c17956180f242349ef6e0">&#9670;&nbsp;</a></span>add_executable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -85,7 +86,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">add_executable </td>
           <td>(</td>
-          <td class="paramtype">testE TestEncode.cpp LosslessEncoder.cpp Preditor.cpp Golomb.cpp RBitStream.cpp WBitStream.&#160;</td>
+          <td class="paramtype">testE TestEncode.cpp LosslessHybrid.cpp Preditor.cpp Golomb.cpp RBitStream.cpp WBitStream.&#160;</td>
           <td class="paramname"><em>cpp</em></td><td>)</td>
           <td></td>
         </tr>

@@ -1,11 +1,13 @@
 /*! \file TestEncode.cpp
- *	\brief Encode a video file by passing by order : The video file to encode, the type of predictive encoding you want,m param for the golomb code,file to encode to 
+ *	\brief Encode a video file by hybrid encoding (intra and inter frame)
  *	       
  *	First Flag -> Name of the video file to encode\n
- *	Second Flag -> Tipo de preditor\n
- *	Third Flag -> m atribute of the Golomb code\n
- *	Fourth Flag -> File name to encode to\n
- *	Fifth Flag -> Type of the video
+ *	Second Flag -> Block size\n
+ *	Third Flag -> Search space\n
+ *	Fourth Flag -> Type of the video\n
+ *	Fifth Flag -> Type of the predictor\n
+ *	Sixth Flag -> Parameter M of the golomb code\n
+ *	Seventh Flag -> Period to encode a intra frame instead of considering the last frame
  *
  *	Press ESC to exit.
  *

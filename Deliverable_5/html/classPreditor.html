@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Lossless Encoder: Preditor Class Reference</title>
+<title>Hybrid Encoder: Preditor Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,8 +21,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Lossless Encoder
+   <div id="projectname">Hybrid Encoder
    </div>
+   <div id="projectbrief">Encoding/Decoding videos with intra and inter frame specifications</div>
   </td>
  </tr>
  </tbody>
@@ -71,14 +72,27 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8dbd5239e01471bd12f36382266b8e3c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#a8dbd5239e01471bd12f36382266b8e3c">Preditor</a> (int Type, int M, string file, int TypeVideo, int n_f, int flag)</td></tr>
-<tr class="memdesc:a8dbd5239e01471bd12f36382266b8e3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">A constructor, Initiates the atributes, if we are encoding then we match the elements passed to the respective atributes of the class, if we are decoding we set these atributes by reading the header of the file.  <a href="classPreditor.html#a8dbd5239e01471bd12f36382266b8e3c">More...</a><br /></td></tr>
-<tr class="separator:a8dbd5239e01471bd12f36382266b8e3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5d7cecdca3d522b23ef81fa9de3da5d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#ac5d7cecdca3d522b23ef81fa9de3da5d">Preditor</a> (int Type, int M, string file, int TypeVideo, int n_f, int flag, int bs, int ss)</td></tr>
+<tr class="memdesc:ac5d7cecdca3d522b23ef81fa9de3da5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A constructor, Initiates the atributes, if we are encoding then we match the elements passed to the respective atributes of the class, if we are decoding we set these atributes by reading the header of the file.  <a href="classPreditor.html#ac5d7cecdca3d522b23ef81fa9de3da5d">More...</a><br /></td></tr>
+<tr class="separator:ac5d7cecdca3d522b23ef81fa9de3da5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad057b6448d1792b26a618072b67fd0eb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#ad057b6448d1792b26a618072b67fd0eb">get_frames</a> ()</td></tr>
-<tr class="memdesc:ad057b6448d1792b26a618072b67fd0eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode de number passed as a parameter, calculating the quotient and the remainder and ecoding inunary and binary respectively depending on the value of m.  <a href="classPreditor.html#ad057b6448d1792b26a618072b67fd0eb">More...</a><br /></td></tr>
+<tr class="memdesc:ad057b6448d1792b26a618072b67fd0eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getting the frames of the video we are decoding.  <a href="classPreditor.html#ad057b6448d1792b26a618072b67fd0eb">More...</a><br /></td></tr>
 <tr class="separator:ad057b6448d1792b26a618072b67fd0eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2864b2d06487b335312befd673ce6350"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#a2864b2d06487b335312befd673ce6350">get_type</a> ()</td></tr>
+<tr class="memdesc:a2864b2d06487b335312befd673ce6350"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getting the type of the predictor we are using.  <a href="classPreditor.html#a2864b2d06487b335312befd673ce6350">More...</a><br /></td></tr>
 <tr class="separator:a2864b2d06487b335312befd673ce6350"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af228cac1163d773d3818b1bc1ad7eb53"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#af228cac1163d773d3818b1bc1ad7eb53">get_VideoType</a> ()</td></tr>
+<tr class="memdesc:af228cac1163d773d3818b1bc1ad7eb53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getting the type of the video we are using.  <a href="classPreditor.html#af228cac1163d773d3818b1bc1ad7eb53">More...</a><br /></td></tr>
+<tr class="separator:af228cac1163d773d3818b1bc1ad7eb53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6046558de8222b2f22fbecbd13dceb00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#a6046558de8222b2f22fbecbd13dceb00">set_last_frame</a> (vector&lt; Mat &gt; planes)</td></tr>
+<tr class="memdesc:a6046558de8222b2f22fbecbd13dceb00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setting the last frame encoded or decoded.  <a href="classPreditor.html#a6046558de8222b2f22fbecbd13dceb00">More...</a><br /></td></tr>
+<tr class="separator:a6046558de8222b2f22fbecbd13dceb00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19ae555638712d981cd6b2582cf7a1a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#a19ae555638712d981cd6b2582cf7a1a4">encode_by_blocks</a> (vector&lt; Mat &gt; planes)</td></tr>
+<tr class="memdesc:a19ae555638712d981cd6b2582cf7a1a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to encode by blocks the frame passed as paramter, gets all the blocks of each planes and matches a block from the last frame that best fits the current block, encodes de diference in position and the diference of each pixel.  <a href="classPreditor.html#a19ae555638712d981cd6b2582cf7a1a4">More...</a><br /></td></tr>
+<tr class="separator:a19ae555638712d981cd6b2582cf7a1a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83bdf6322f7db6b93190a159843f1a4e"><td class="memItemLeft" align="right" valign="top">vector&lt; Mat &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#a83bdf6322f7db6b93190a159843f1a4e">decode_by_blocks</a> ()</td></tr>
+<tr class="memdesc:a83bdf6322f7db6b93190a159843f1a4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to decode by blocks the next frame in the binary file, gets each position and block numbers and matches with the last frame for the best match and reconstructs each plane of the frame.  <a href="classPreditor.html#a83bdf6322f7db6b93190a159843f1a4e">More...</a><br /></td></tr>
+<tr class="separator:a83bdf6322f7db6b93190a159843f1a4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71a682f144542a29f5a5bd949bef8038"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#a71a682f144542a29f5a5bd949bef8038">encodeJPEG1</a> (Mat f)</td></tr>
 <tr class="memdesc:a71a682f144542a29f5a5bd949bef8038"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode de frame passed as a parameter by predicting encoding from JPEG1.  <a href="classPreditor.html#a71a682f144542a29f5a5bd949bef8038">More...</a><br /></td></tr>
 <tr class="separator:a71a682f144542a29f5a5bd949bef8038"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,8 +145,8 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classGolomb.html">Golomb</a> code class </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8dbd5239e01471bd12f36382266b8e3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8dbd5239e01471bd12f36382266b8e3c">&#9670;&nbsp;</a></span>Preditor()</h2>
+<a id="ac5d7cecdca3d522b23ef81fa9de3da5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5d7cecdca3d522b23ef81fa9de3da5d">&#9670;&nbsp;</a></span>Preditor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -174,7 +188,19 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>flag</em>&#160;</td>
+          <td class="paramname"><em>flag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>bs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ss</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -192,12 +218,15 @@ Public Member Functions</h2></td></tr>
 <p>A constructor, Initiates the atributes, if we are encoding then we match the elements passed to the respective atributes of the class, if we are decoding we set these atributes by reading the header of the file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">file</td><td>A string with the name of the file </td></tr>
+    <tr><td class="paramname">Type</td><td>The type of predictor to be used </td></tr>
     <tr><td class="paramname">M</td><td>Parameter m for the golomb code </td></tr>
-    <tr><td class="paramname">type</td><td>type of the predictor </td></tr>
-    <tr><td class="paramname">typeVideo</td><td>type of the video </td></tr>
+    <tr><td class="paramname">file</td><td>String with the name of the file to encode </td></tr>
+    <tr><td class="paramname">TypeVideo</td><td>type of the video to encode </td></tr>
     <tr><td class="paramname">n_f</td><td>number of frames we are encoding </td></tr>
     <tr><td class="paramname">flag</td><td>flag to signal if we are encoding of decoding </td></tr>
+    <tr><td class="paramname">bs</td><td>block size </td></tr>
+    <tr><td class="paramname">ss</td><td>search size for the block encoding </td></tr>
+    <tr><td class="paramname">outFile</td><td>String with the file to encode to/decode from </td></tr>
   </table>
   </dd>
 </dl>
@@ -205,6 +234,33 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a83bdf6322f7db6b93190a159843f1a4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83bdf6322f7db6b93190a159843f1a4e">&#9670;&nbsp;</a></span>decode_by_blocks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;Mat&gt; Preditor::decode_by_blocks </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to decode by blocks the next frame in the binary file, gets each position and block numbers and matches with the last frame for the best match and reconstructs each plane of the frame. </p>
+
+</div>
+</div>
 <a id="ac5e8cd1cf0c7a2e06fbc082aab5b6975"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac5e8cd1cf0c7a2e06fbc082aab5b6975">&#9670;&nbsp;</a></span>decodeJPEG1()</h2>
 
@@ -418,6 +474,40 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Decode the next frame on the file using the predictor from JPEGLS. </p>
+
+</div>
+</div>
+<a id="a19ae555638712d981cd6b2582cf7a1a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19ae555638712d981cd6b2582cf7a1a4">&#9670;&nbsp;</a></span>encode_by_blocks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Preditor::encode_by_blocks </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; Mat &gt;&#160;</td>
+          <td class="paramname"><em>planes</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to encode by blocks the frame passed as paramter, gets all the blocks of each planes and matches a block from the last frame that best fits the current block, encodes de diference in position and the diference of each pixel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">planes</td><td>frame to encode (all 3 channels) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -716,13 +806,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Encode de number passed as a parameter, calculating the quotient and the remainder and ecoding inunary and binary respectively depending on the value of m. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">f</td><td>Mat type object to encode to the file </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Getting the frames of the video we are decoding. </p>
 
 </div>
 </div>
@@ -748,6 +832,63 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Getting the type of the predictor we are using. </p>
+
+</div>
+</div>
+<a id="af228cac1163d773d3818b1bc1ad7eb53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af228cac1163d773d3818b1bc1ad7eb53">&#9670;&nbsp;</a></span>get_VideoType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Preditor::get_VideoType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getting the type of the video we are using. </p>
+
+</div>
+</div>
+<a id="a6046558de8222b2f22fbecbd13dceb00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6046558de8222b2f22fbecbd13dceb00">&#9670;&nbsp;</a></span>set_last_frame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Preditor::set_last_frame </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; Mat &gt;&#160;</td>
+          <td class="paramname"><em>planes</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Setting the last frame encoded or decoded. </p>
 
 </div>
 </div>

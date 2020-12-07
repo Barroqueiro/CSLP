@@ -15,7 +15,7 @@ digraph "TestDecode.cpp"
   Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node6 [label="math.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
   Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node7 [label="LosslessEncoder.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LosslessEncoder_8cpp.html",tooltip="Class to encode and decode videos."];
+  Node7 [label="LosslessHybrid.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$LosslessHybrid_8cpp.html",tooltip="Class to encode and decode videos by blocks with inter frame encoding."];
   Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node8 [label="opencv2/opencv.hpp",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
   Node7 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['losslessencoder_26',['LosslessEncoder',['../classLosslessEncoder.html',1,'LosslessEncoder'],['../classLosslessEncoder.html#aeb73d48ad35373ab0c168ec45646e91a',1,'LosslessEncoder::LosslessEncoder()']]],
-  ['losslessencoder_2ecpp_27',['LosslessEncoder.cpp',['../LosslessEncoder_8cpp.html',1,'']]]
+  ['losslesshybrid_29',['LosslessHybrid',['../classLosslessHybrid.html',1,'LosslessHybrid'],['../classLosslessHybrid.html#a0b719480c282903c6d7a24bc059c9f5f',1,'LosslessHybrid::LosslessHybrid()']]],
+  ['losslesshybrid_2ecpp_30',['LosslessHybrid.cpp',['../LosslessHybrid_8cpp.html',1,'']]]
 ];

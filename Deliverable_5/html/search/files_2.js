@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['losslessencoder_2ecpp_51',['LosslessEncoder.cpp',['../LosslessEncoder_8cpp.html',1,'']]]
+  ['losslesshybrid_2ecpp_56',['LosslessHybrid.cpp',['../LosslessHybrid_8cpp.html',1,'']]]
 ];

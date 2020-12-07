@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['losslessencoder_81',['LosslessEncoder',['../classLosslessEncoder.html#aeb73d48ad35373ab0c168ec45646e91a',1,'LosslessEncoder']]]
+  ['losslesshybrid_90',['LosslessHybrid',['../classLosslessHybrid.html#a0b719480c282903c6d7a24bc059c9f5f',1,'LosslessHybrid']]]
 ];

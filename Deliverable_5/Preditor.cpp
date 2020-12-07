@@ -34,21 +34,24 @@ class Preditor {
 		int colunas/*! Width of the frame we are decoding */;
 		int start/*! Signaling if we are encoding from the start so we can write some more information on the header*/;
 		Golomb *g/*! Pointer to a golomb encoder to write/read the values we get from the preditor */;
-		int block_size;
-		int search_space;
-		vector<Mat> lastFrame;
-		int od;
+		int block_size/*! Size of the blocks to encode*/;
+		int search_space/*! Search space for which we cant search for a block to match */;
+		vector<Mat> lastFrame/*! Last Frame encoded or decoded, this is needed since we are doing inter frame encoding and decoding*/;
+		int od/*! offset in decoding */;
 		WBitStream *wbs/*! Write Bit stream to write the header to the file when we are encoding */;
 	public: 
 	
 	   	//! A constructor, Initiates the atributes, if we are encoding then we match the elements passed to the respective atributes of the class, if we are decoding we set these atributes by reading the header of the file
 	    /*!
-	      \param file A string with the name of the file
+	      \param Type The type of predictor to be used
 	      \param M Parameter m for the golomb code
-	      \param type type of the predictor
-	      \param typeVideo type of the video
+	      \param file String with the name of the file to encode
+	      \param TypeVideo type of the video to encode
 	      \param n_f number of frames we are encoding
 	      \param flag flag to signal if we are encoding of decoding
+	      \param bs block size
+	      \param ss search size for the block encoding
+	      \param outFile String with the file to encode to/decode from
 	    */
 	   	Preditor(int Type, int M,string file,int TypeVideo,int n_f,int flag,int bs,int ss){
 	   		if (flag == 1){// Encoding
@@ -93,27 +96,34 @@ class Preditor {
 		   	}
 	   	}
 	   	
-	   	//! Encode de number passed as a parameter, calculating the quotient and the remainder and ecoding inunary and binary respectively depending on the value of m
-	    /*!
-	      \param f Mat type object to encode to the file
-	    */
+	   	//! Getting the frames of the video we are decoding
 	    
 	    	int get_frames(){
 	    		return n_frames;
 	    	}
 	    	
+	    	//! Getting the type of the predictor we are using
+	    	
 	    	int get_type(){
 	    		return type;
 	    	}
+	    	
+	    	//! Getting the type of the video we are using
 	    	
 	    	int get_VideoType(){
 	    		return typeVideo;
 	    	}
 	    	
+	    	//! Setting the last frame encoded or decoded
+	    	
 	    	void set_last_frame(vector<Mat> planes){
 			lastFrame = planes;
 	    	}
 	    	
+	    	//! Function to encode by blocks the frame passed as paramter, gets all the blocks of each planes and matches a block from the last frame that best fits the current block, encodes de diference in position and the diference of each pixel
+	    	/*!
+	    	  \param planes frame to encode (all 3 channels)
+	    	*/
 	    	
 	    	void encode_by_blocks(vector<Mat> planes){
 	    		cout << "Encoding frame by blocks" << endl;
@@ -184,6 +194,8 @@ class Preditor {
 	    		cout << "Blocks: " << count_blocks << endl;
 	    		//exit(0);
 	    	}
+	    	
+	    	//! Function to decode by blocks the next frame in the binary file, gets each position and block numbers and matches with the last frame for the best match and reconstructs each plane of the frame
 	    	
 	    	vector<Mat> decode_by_blocks(){
 	    	    	vector<Mat> res;

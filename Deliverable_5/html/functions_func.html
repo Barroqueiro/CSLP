@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Lossless Encoder: Class Members - Functions</title>
+<title>Hybrid Encoder: Class Members - Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,8 +21,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Lossless Encoder
+   <div id="projectname">Hybrid Encoder
    </div>
+   <div id="projectbrief">Encoding/Decoding videos with intra and inter frame specifications</div>
   </td>
  </tr>
  </tbody>
@@ -75,7 +76,10 @@ $(function() {
 <h3><a id="index_d"></a>- d -</h3><ul>
 <li>decode()
 : <a class="el" href="classGolomb.html#abfc8d58261fc9bcc5d5e2559aed4a288">Golomb</a>
-, <a class="el" href="classLosslessEncoder.html#a311b0bfa63dac937f2d23271e3d5adc9">LosslessEncoder</a>
+, <a class="el" href="classLosslessHybrid.html#a7faa90c101302f2636c072ceaacace6e">LosslessHybrid</a>
+</li>
+<li>decode_by_blocks()
+: <a class="el" href="classPreditor.html#a83bdf6322f7db6b93190a159843f1a4e">Preditor</a>
 </li>
 <li>decodeJPEG1()
 : <a class="el" href="classPreditor.html#ac5e8cd1cf0c7a2e06fbc082aab5b6975">Preditor</a>
@@ -107,7 +111,10 @@ $(function() {
 <h3><a id="index_e"></a>- e -</h3><ul>
 <li>encode()
 : <a class="el" href="classGolomb.html#ac23190a357af7db62de1f4a213c6ce36">Golomb</a>
-, <a class="el" href="classLosslessEncoder.html#a165e396f1899a5ccd1d503f59663c712">LosslessEncoder</a>
+, <a class="el" href="classLosslessHybrid.html#a821c522b1cc3c78798970bc1470eb0f0">LosslessHybrid</a>
+</li>
+<li>encode_by_blocks()
+: <a class="el" href="classPreditor.html#a19ae555638712d981cd6b2582cf7a1a4">Preditor</a>
 </li>
 <li>encodeJPEG1()
 : <a class="el" href="classPreditor.html#a71a682f144542a29f5a5bd949bef8038">Preditor</a>
@@ -143,6 +150,9 @@ $(function() {
 <li>get_type()
 : <a class="el" href="classPreditor.html#a2864b2d06487b335312befd673ce6350">Preditor</a>
 </li>
+<li>get_VideoType()
+: <a class="el" href="classPreditor.html#af228cac1163d773d3818b1bc1ad7eb53">Preditor</a>
+</li>
 <li>Golomb()
 : <a class="el" href="classGolomb.html#a15968ad170e33dfa72538641078e85db">Golomb</a>
 </li>
@@ -150,15 +160,15 @@ $(function() {
 
 
 <h3><a id="index_l"></a>- l -</h3><ul>
-<li>LosslessEncoder()
-: <a class="el" href="classLosslessEncoder.html#aeb73d48ad35373ab0c168ec45646e91a">LosslessEncoder</a>
+<li>LosslessHybrid()
+: <a class="el" href="classLosslessHybrid.html#a0b719480c282903c6d7a24bc059c9f5f">LosslessHybrid</a>
 </li>
 </ul>
 
 
 <h3><a id="index_p"></a>- p -</h3><ul>
 <li>Preditor()
-: <a class="el" href="classPreditor.html#a8dbd5239e01471bd12f36382266b8e3c">Preditor</a>
+: <a class="el" href="classPreditor.html#ac5d7cecdca3d522b23ef81fa9de3da5d">Preditor</a>
 </li>
 </ul>
 
@@ -180,6 +190,9 @@ $(function() {
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>set_last_frame()
+: <a class="el" href="classPreditor.html#a6046558de8222b2f22fbecbd13dceb00">Preditor</a>
+</li>
 <li>SkipNBytes()
 : <a class="el" href="classGolomb.html#ab41b0a8532ebd5844e65802c2281ce68">Golomb</a>
 </li>

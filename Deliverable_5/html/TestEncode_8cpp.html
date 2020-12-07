@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Lossless Encoder: TestEncode.cpp File Reference</title>
+<title>Hybrid Encoder: TestEncode.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,8 +21,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Lossless Encoder
+   <div id="projectname">Hybrid Encoder
    </div>
+   <div id="projectbrief">Encoding/Decoding videos with intra and inter frame specifications</div>
   </td>
  </tr>
  </tbody>
@@ -68,14 +69,14 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Encode a video file by passing by order : The video file to encode, the type of predictive encoding you want,m param for the golomb code,file to encode to.  
+<p>Encode a video file by hybrid encoding (intra and inter frame)  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="LosslessEncoder_8cpp.html">LosslessEncoder.cpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LosslessHybrid_8cpp.html">LosslessHybrid.cpp</a>&quot;</code><br />
 <code>#include &lt;string&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for TestEncode.cpp:</div>
@@ -90,12 +91,15 @@ Functions</h2></td></tr>
 <tr class="separator:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Encode a video file by passing by order : The video file to encode, the type of predictive encoding you want,m param for the golomb code,file to encode to. </p>
+<div class="textblock"><p>Encode a video file by hybrid encoding (intra and inter frame) </p>
 <p>First Flag -&gt; Name of the video file to encode<br  />
-Second Flag -&gt; Tipo de preditor<br  />
-Third Flag -&gt; m atribute of the <a class="el" href="classGolomb.html">Golomb</a> code<br  />
-Fourth Flag -&gt; File name to encode to<br  />
- Press ESC to exit. </p>
+Second Flag -&gt; Block size<br  />
+Third Flag -&gt; Search space<br  />
+Fourth Flag -&gt; Type of the video<br  />
+Fifth Flag -&gt; Type of the predictor<br  />
+Sixth Flag -&gt; Parameter M of the golomb code<br  />
+Seventh Flag -&gt; Period to encode a intra frame instead of considering the last frame</p>
+<p>Press ESC to exit. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a3c04138a5bfe5d72780bb7e82a18e627"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c04138a5bfe5d72780bb7e82a18e627">&#9670;&nbsp;</a></span>main()</h2>

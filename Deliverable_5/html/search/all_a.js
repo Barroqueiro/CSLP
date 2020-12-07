@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['testdecode_2ecpp_37',['TestDecode.cpp',['../TestDecode_8cpp.html',1,'']]],
-  ['testencode_2ecpp_38',['TestEncode.cpp',['../TestEncode_8cpp.html',1,'']]]
+  ['set_5flast_5fframe_40',['set_last_frame',['../classPreditor.html#a6046558de8222b2f22fbecbd13dceb00',1,'Preditor']]],
+  ['skipnbytes_41',['SkipNBytes',['../classGolomb.html#ab41b0a8532ebd5844e65802c2281ce68',1,'Golomb']]]
 ];
