@@ -640,7 +640,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
@@ -653,7 +652,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
@@ -757,7 +755,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
@@ -770,7 +767,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
@@ -874,7 +870,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
@@ -887,7 +882,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
@@ -991,7 +985,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
@@ -1004,7 +997,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
@@ -1108,7 +1100,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
@@ -1121,7 +1112,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
@@ -1225,7 +1215,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
@@ -1238,7 +1227,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
@@ -1342,7 +1330,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
@@ -1355,7 +1342,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
@@ -1459,7 +1445,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
@@ -1472,7 +1457,6 @@ class LosslessHybrid {
 			   						cvtColor(result, result, COLOR_YUV2RGB );
 			   					}
 								imshow("Display",result);
-								waitKey(0);
 								if(waitKey(30) >=0){
 									break;
 								}
