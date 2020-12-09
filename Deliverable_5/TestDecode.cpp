@@ -22,7 +22,7 @@ using namespace std;
 
 int main( int argc, char** argv )
 {	
-	LosslessHybrid d("",0,0,0,0,0,0,0);
+	LosslessHybrid d("",0,0,0,0,0,0,0,argv[1]);
 	d.decode();
 	return 0;
 }

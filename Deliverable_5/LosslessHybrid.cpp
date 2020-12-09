@@ -53,7 +53,7 @@ class LosslessHybrid {
 	      \param pe Period to encode a intra frame
 	      \param f flag to decide if we are encoding or decoding
 	    */
-	   	LosslessHybrid(string v, int bs, int ss, int tv, int tp, int M, int pe, int f){
+	   	LosslessHybrid(string v, int bs, int ss, int tv, int tp, int M, int pe, int f, string outFile){
 	   		File = v;
 	   		block_size = bs;
 	   		search_space = ss;
@@ -72,9 +72,9 @@ class LosslessHybrid {
 		   			count++;
 		   			capa >> fra;
 		   		}
-	   			p = new Preditor(pred,m,"out.bin",type,count,flag,block_size,search_space);
+	   			p = new Preditor(pred,m,outFile,type,count,flag,block_size,search_space);
 	   		}else{
-	   			p = new Preditor(0,0,"out.bin",0,0,0,0,0);
+	   			p = new Preditor(0,0,outFile,0,0,0,0,0);
 	   		}
 
 	   	}
@@ -609,6 +609,7 @@ class LosslessHybrid {
 	   				break;
 	   				
 	   		}
+	   		p->close();
 	   	}
 	   	
 	   	//! Decode the video by blocks encoded in the file, switch to decide with preditor encoding was used after a initial read of the header

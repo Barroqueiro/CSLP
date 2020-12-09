@@ -8,6 +8,7 @@
  *	Fifth Flag -> Type of the predictor\n
  *	Sixth Flag -> Parameter M of the golomb code\n
  *	Seventh Flag -> Period to encode a intra frame instead of considering the last frame
+ *	Eighth Flag -> File to encode to
  *
  *	Press ESC to exit.
  *
@@ -36,7 +37,7 @@ int main( int argc, char** argv )
 			//l.encode();
 		//}
 	//}
-	LosslessHybrid l(argv[1],stoi(argv[2]),stoi(argv[3]),stoi(argv[4]),stoi(argv[5]),stoi(argv[6]),stoi(argv[7]),1);
+	LosslessHybrid l(argv[1],stoi(argv[2]),stoi(argv[3]),stoi(argv[4]),stoi(argv[5]),stoi(argv[6]),stoi(argv[7]),1,argv[8]);
 	l.encode();
 	return 0;
 }

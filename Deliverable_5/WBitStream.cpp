@@ -23,11 +23,11 @@ class WBitStream {
 		unsigned char cacheWrite/*! uchar used to keep the bits until we can write them as 1 byte */;
 		int posWrite/*! int used to keep track of the position in cacheWrite */;
 		string FileName/*! File for output */;
+		ofstream *ofsb;
+		
 		//! Write the cacheWrite content as a byte in the specified file using ofstream
 		void writeByte(){
-			ofstream ofsb(FileName, ios::binary | ios::app | ios::out);
-			ofsb.write(reinterpret_cast<char*>(&cacheWrite), 1);
-			ofsb.close();
+			ofsb->write(reinterpret_cast<char*>(&cacheWrite), 1);
 		}
 		
 	public: 
@@ -38,6 +38,7 @@ class WBitStream {
 	    */
 	    
 		WBitStream(string file){
+			ofsb = new ofstream(file, ios::binary | ios::app | ios::out);
 			FileName = file;
 			cacheWrite = 0;
 			posWrite = 7;
@@ -89,6 +90,10 @@ class WBitStream {
 		
 		void close(){
 			writeByte();
+		}
+		
+		void closeNoWrite(){
+			ofsb->close();
 		}
 };
 

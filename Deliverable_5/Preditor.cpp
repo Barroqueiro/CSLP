@@ -38,6 +38,7 @@ class Preditor {
 		int search_space/*! Search space for which we cant search for a block to match */;
 		vector<Mat> lastFrame/*! Last Frame encoded or decoded, this is needed since we are doing inter frame encoding and decoding*/;
 		int od/*! offset in decoding */;
+		string fileName;
 		WBitStream *wbs/*! Write Bit stream to write the header to the file when we are encoding */;
 	public: 
 	
@@ -54,13 +55,13 @@ class Preditor {
 	      \param outFile String with the file to encode to/decode from
 	    */
 	   	Preditor(int Type, int M,string file,int TypeVideo,int n_f,int flag,int bs,int ss){
+	   		fileName=file;
 	   		if (flag == 1){// Encoding
 	   			block_size = bs;
 	   			search_space = ss;
 		   		m = M;
 		   		type = Type;
 		   		typeVideo = TypeVideo;
-		   		g = new Golomb(file,m,1);
 		   		start = 1;
 		   		n_frames = n_f;
 		   		cout << "Write header" << endl;
@@ -118,6 +119,10 @@ class Preditor {
 	    	
 	    	void set_last_frame(vector<Mat> planes){
 			lastFrame = planes;
+	    	}
+	    	
+	    	void close(){
+	    		g->close();
 	    	}
 	    	
 	    	//! Function to encode by blocks the frame passed as paramter, gets all the blocks of each planes and matches a block from the last frame that best fits the current block, encodes de diference in position and the diference of each pixel
@@ -410,6 +415,8 @@ class Preditor {
 		   		wbs->writeString(width);
 		   		wbs->writeString(height);
 		   		wbs->writeString(frames);
+		   		wbs->closeNoWrite();
+		   		g = new Golomb(fileName,m,1);
 		   		cout << "Processing video" << endl;
 		   		start=0;
 			}
@@ -456,6 +463,8 @@ class Preditor {
 		   		wbs->writeString(width);
 		   		wbs->writeString(height);
 		   		wbs->writeString(frames);
+		   		wbs->closeNoWrite();
+		   		g = new Golomb(fileName,m,1);
 		   		cout << "Processing video" << endl;
 		   		start=0;
 			}
@@ -502,6 +511,8 @@ class Preditor {
 		   		wbs->writeString(width);
 		   		wbs->writeString(height);
 		   		wbs->writeString(frames);
+		   		wbs->closeNoWrite();
+		   		g = new Golomb(fileName,m,1);
 		   		cout << "Processing video" << endl;
 		   		start=0;
 			}
@@ -548,6 +559,8 @@ class Preditor {
 		   		wbs->writeString(width);
 		   		wbs->writeString(height);
 		   		wbs->writeString(frames);
+		   		wbs->closeNoWrite();
+		   		g = new Golomb(fileName,m,1);
 		   		cout << "Processing video" << endl;
 		   		start=0;
 			}
@@ -609,6 +622,8 @@ class Preditor {
 		   		wbs->writeString(width);
 		   		wbs->writeString(height);
 		   		wbs->writeString(frames);
+		   		wbs->closeNoWrite();
+		   		g = new Golomb(fileName,m,1);
 		   		cout << "Processing video" << endl;
 		   		start=0;
 			}
@@ -670,6 +685,8 @@ class Preditor {
 		   		wbs->writeString(width);
 		   		wbs->writeString(height);
 		   		wbs->writeString(frames);
+		   		wbs->closeNoWrite();
+		   		g = new Golomb(fileName,m,1);
 		   		cout << "Processing video" << endl;
 		   		start=0;
 			}
@@ -730,6 +747,8 @@ class Preditor {
 		   		wbs->writeString(width);
 		   		wbs->writeString(height);
 		   		wbs->writeString(frames);
+		   		wbs->closeNoWrite();
+		   		g = new Golomb(fileName,m,1);
 		   		cout << "Processing video" << endl;
 		   		start=0;
 			}
@@ -790,6 +809,8 @@ class Preditor {
 		   		wbs->writeString(width);
 		   		wbs->writeString(height);
 		   		wbs->writeString(frames);
+		   		wbs->closeNoWrite();
+		   		g = new Golomb(fileName,m,1);
 		   		cout << "Processing video" << endl;
 		   		start=0;
 			}

@@ -1,2 +1,10 @@
 bloco_diferente = bloco_frame0-bloco_frame1
 diferença de blocos
+
+Results Maker should:
+	Cross reference: 3 M's (2,3,4)
+			  Predictors : Todos
+			  Block size: 2,4,8,16
+			  Search space: 5,10
+Notas da aula:
+	
