@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['main_31',['main',['../TestDecode_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;TestDecode.cpp'],['../TestEncode_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;TestEncode.cpp']]]
+  ['losslesshybrid_32',['LosslessHybrid',['../classLosslessHybrid.html',1,'LosslessHybrid'],['../classLosslessHybrid.html#a5530e02c6e3e9ce8ddfd48ee140deac8',1,'LosslessHybrid::LosslessHybrid()']]],
+  ['losslesshybrid_2ecpp_33',['LosslessHybrid.cpp',['../LosslessHybrid_8cpp.html',1,'']]]
 ];

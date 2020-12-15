@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['losslesshybrid_50',['LosslessHybrid',['../classLosslessHybrid.html',1,'']]]
+  ['losslesshybrid_56',['LosslessHybrid',['../classLosslessHybrid.html',1,'']]]
 ];

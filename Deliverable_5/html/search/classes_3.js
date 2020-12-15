@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rbitstream_52',['RBitStream',['../classRBitStream.html',1,'']]]
+  ['rbitstream_58',['RBitStream',['../classRBitStream.html',1,'']]]
 ];

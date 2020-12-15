@@ -71,14 +71,16 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7364aa1dcf03f1fddffe928b009e96aa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a7364aa1dcf03f1fddffe928b009e96aa">cmake_minimum_required</a> (VERSION 2.8) project(<a class="el" href="classGolomb.html">Golomb</a>) find_package(OpenCV REQUIRED) include_directories($</td></tr>
-<tr class="separator:a7364aa1dcf03f1fddffe928b009e96aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52d6d728317c17956180f242349ef6e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a52d6d728317c17956180f242349ef6e0">add_executable</a> (testE TestEncode.cpp LosslessHybrid.cpp Preditor.cpp Golomb.cpp RBitStream.cpp WBitStream.cpp) add_executable(testD TestDecode.cpp LosslessHybrid.cpp Preditor.cpp Golomb.cpp RBitStream.cpp WBitStream.cpp) target_link_libraries(testE $</td></tr>
-<tr class="separator:a52d6d728317c17956180f242349ef6e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a323e4745f3a9abf00316f46d44a1d97a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a323e4745f3a9abf00316f46d44a1d97a">cmake_minimum_required</a> (VERSION 2.8) project(LossLessHybrid) find_package(OpenCV REQUIRED) include_directories($</td></tr>
+<tr class="separator:a323e4745f3a9abf00316f46d44a1d97a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad57513233579bd52bcfc54a3c98cd5c8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#ad57513233579bd52bcfc54a3c98cd5c8">add_executable</a> (testE TestEncode.cpp LosslessHybrid.cpp Preditor.cpp Golomb.cpp RBitStream.cpp WBitStream.cpp) add_executable(testD TestDecode.cpp LosslessHybrid.cpp Preditor.cpp Golomb.cpp RBitStream.cpp WBitStream.cpp) add_executable(result ResultsMaker.cpp LosslessHybrid.cpp Preditor.cpp Golomb.cpp RBitStream.cpp WBitStream.cpp) <a class="el" href="CMakeLists_8txt.html#aa3abeed80a1c60caad6e2b0874f478fc">target_link_libraries</a>(testE $</td></tr>
+<tr class="separator:ad57513233579bd52bcfc54a3c98cd5c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3abeed80a1c60caad6e2b0874f478fc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#aa3abeed80a1c60caad6e2b0874f478fc">target_link_libraries</a> (testD ${OpenCV_LIBS}) target_link_libraries(result $</td></tr>
+<tr class="separator:aa3abeed80a1c60caad6e2b0874f478fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a52d6d728317c17956180f242349ef6e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52d6d728317c17956180f242349ef6e0">&#9670;&nbsp;</a></span>add_executable()</h2>
+<a id="ad57513233579bd52bcfc54a3c98cd5c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad57513233579bd52bcfc54a3c98cd5c8">&#9670;&nbsp;</a></span>add_executable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -95,8 +97,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a7364aa1dcf03f1fddffe928b009e96aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7364aa1dcf03f1fddffe928b009e96aa">&#9670;&nbsp;</a></span>cmake_minimum_required()</h2>
+<a id="a323e4745f3a9abf00316f46d44a1d97a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a323e4745f3a9abf00316f46d44a1d97a">&#9670;&nbsp;</a></span>cmake_minimum_required()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -106,6 +108,24 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">VERSION 2.&#160;</td>
           <td class="paramname"><em>8</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa3abeed80a1c60caad6e2b0874f478fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3abeed80a1c60caad6e2b0874f478fc">&#9670;&nbsp;</a></span>target_link_libraries()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">target_link_libraries </td>
+          <td>(</td>
+          <td class="paramtype">testD ${OpenCV_LIBS}&#160;</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>

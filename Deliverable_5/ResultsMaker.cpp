@@ -1,5 +1,5 @@
-/*! \file TestEncode.cpp
- *	\brief Encode a video file by hybrid encoding (intra and inter frame)
+/*! \file ResultsMaker.cpp
+ *	\brief Scrip to create results and see what are the best encoding params
  *	       
  *
  *

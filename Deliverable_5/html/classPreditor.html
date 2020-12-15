@@ -72,9 +72,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac5d7cecdca3d522b23ef81fa9de3da5d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#ac5d7cecdca3d522b23ef81fa9de3da5d">Preditor</a> (int Type, int M, string file, int TypeVideo, int n_f, int flag, int bs, int ss)</td></tr>
-<tr class="memdesc:ac5d7cecdca3d522b23ef81fa9de3da5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A constructor, Initiates the atributes, if we are encoding then we match the elements passed to the respective atributes of the class, if we are decoding we set these atributes by reading the header of the file.  <a href="classPreditor.html#ac5d7cecdca3d522b23ef81fa9de3da5d">More...</a><br /></td></tr>
-<tr class="separator:ac5d7cecdca3d522b23ef81fa9de3da5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1de22d734c9af1b8a75a41c36d51261"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#aa1de22d734c9af1b8a75a41c36d51261">Preditor</a> (int Type, int M, string file, int TypeVideo, int n_f, int flag, int bs, int ss, int peri)</td></tr>
+<tr class="memdesc:aa1de22d734c9af1b8a75a41c36d51261"><td class="mdescLeft">&#160;</td><td class="mdescRight">A constructor, Initiates the atributes, if we are encoding then we match the elements passed to the respective atributes of the class, if we are decoding we set these atributes by reading the header of the file.  <a href="classPreditor.html#aa1de22d734c9af1b8a75a41c36d51261">More...</a><br /></td></tr>
+<tr class="separator:aa1de22d734c9af1b8a75a41c36d51261"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad057b6448d1792b26a618072b67fd0eb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#ad057b6448d1792b26a618072b67fd0eb">get_frames</a> ()</td></tr>
 <tr class="memdesc:ad057b6448d1792b26a618072b67fd0eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getting the frames of the video we are decoding.  <a href="classPreditor.html#ad057b6448d1792b26a618072b67fd0eb">More...</a><br /></td></tr>
 <tr class="separator:ad057b6448d1792b26a618072b67fd0eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -87,6 +87,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6046558de8222b2f22fbecbd13dceb00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#a6046558de8222b2f22fbecbd13dceb00">set_last_frame</a> (vector&lt; Mat &gt; planes)</td></tr>
 <tr class="memdesc:a6046558de8222b2f22fbecbd13dceb00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setting the last frame encoded or decoded.  <a href="classPreditor.html#a6046558de8222b2f22fbecbd13dceb00">More...</a><br /></td></tr>
 <tr class="separator:a6046558de8222b2f22fbecbd13dceb00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7e678016e81203f4ae6e2883e88207c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#ad7e678016e81203f4ae6e2883e88207c">get_period</a> ()</td></tr>
+<tr class="memdesc:ad7e678016e81203f4ae6e2883e88207c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getting the period of encoding intra frames.  <a href="classPreditor.html#ad7e678016e81203f4ae6e2883e88207c">More...</a><br /></td></tr>
+<tr class="separator:ad7e678016e81203f4ae6e2883e88207c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6c7f1a34391a4c11fe7b05b9b8cd609"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#ad6c7f1a34391a4c11fe7b05b9b8cd609">close</a> ()</td></tr>
+<tr class="separator:ad6c7f1a34391a4c11fe7b05b9b8cd609"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19ae555638712d981cd6b2582cf7a1a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreditor.html#a19ae555638712d981cd6b2582cf7a1a4">encode_by_blocks</a> (vector&lt; Mat &gt; planes)</td></tr>
 <tr class="memdesc:a19ae555638712d981cd6b2582cf7a1a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to encode by blocks the frame passed as paramter, gets all the blocks of each planes and matches a block from the last frame that best fits the current block, encodes de diference in position and the diference of each pixel.  <a href="classPreditor.html#a19ae555638712d981cd6b2582cf7a1a4">More...</a><br /></td></tr>
 <tr class="separator:a19ae555638712d981cd6b2582cf7a1a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,8 +150,8 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classGolomb.html">Golomb</a> code class </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac5d7cecdca3d522b23ef81fa9de3da5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5d7cecdca3d522b23ef81fa9de3da5d">&#9670;&nbsp;</a></span>Preditor()</h2>
+<a id="aa1de22d734c9af1b8a75a41c36d51261"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1de22d734c9af1b8a75a41c36d51261">&#9670;&nbsp;</a></span>Preditor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,7 +205,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>ss</em>&#160;</td>
+          <td class="paramname"><em>ss</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>peri</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -234,6 +245,31 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad6c7f1a34391a4c11fe7b05b9b8cd609"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6c7f1a34391a4c11fe7b05b9b8cd609">&#9670;&nbsp;</a></span>close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Preditor::close </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a83bdf6322f7db6b93190a159843f1a4e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a83bdf6322f7db6b93190a159843f1a4e">&#9670;&nbsp;</a></span>decode_by_blocks()</h2>
 
@@ -807,6 +843,33 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Getting the frames of the video we are decoding. </p>
+
+</div>
+</div>
+<a id="ad7e678016e81203f4ae6e2883e88207c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7e678016e81203f4ae6e2883e88207c">&#9670;&nbsp;</a></span>get_period()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Preditor::get_period </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getting the period of encoding intra frames. </p>
 
 </div>
 </div>

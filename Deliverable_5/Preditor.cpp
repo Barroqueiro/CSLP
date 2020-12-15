@@ -33,7 +33,7 @@ class Preditor {
 		int linhas/*! Height of the frame we are decoding */;
 		int colunas/*! Width of the frame we are decoding */;
 		int start/*! Signaling if we are encoding from the start so we can write some more information on the header*/;
-		int period;
+		int period/* period by which intra frames are encoded */;
 		Golomb *g/*! Pointer to a golomb encoder to write/read the values we get from the preditor */;
 		int block_size/*! Size of the blocks to encode*/;
 		int search_space/*! Search space for which we cant search for a block to match */;
@@ -125,6 +125,8 @@ class Preditor {
 	    	void set_last_frame(vector<Mat> planes){
 			lastFrame = planes;
 	    	}
+	    	
+	    	//! Getting the period of encoding intra frames
 	    	
 	    	int get_period(){
 	    		return period;
