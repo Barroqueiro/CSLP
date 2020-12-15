@@ -72,9 +72,9 @@ class LosslessHybrid {
 		   			count++;
 		   			capa >> fra;
 		   		}
-	   			p = new Preditor(pred,m,outFile,type,count,flag,block_size,search_space);
+	   			p = new Preditor(pred,m,outFile,type,count,flag,block_size,search_space,period);
 	   		}else{
-	   			p = new Preditor(0,0,outFile,0,0,0,0,0);
+	   			p = new Preditor(0,0,outFile,0,0,0,0,0,0);
 	   		}
 
 	   	}
@@ -145,7 +145,7 @@ class LosslessHybrid {
 							p->set_last_frame({planes[0],result1,result2});
 						}
 						cap >> frame;
-						cout << "Encoding Frame: "<< count << endl;
+						//cout << "Encoding Frame: "<< count << endl;
 						count++;
 						n_of_current_frame++;
 						
@@ -210,7 +210,7 @@ class LosslessHybrid {
 							p->set_last_frame({planes[0],result1,result2});
 						}
 						cap >> frame;
-						cout << "Encoding Frame: "<< count << endl;
+						//cout << "Encoding Frame: "<< count << endl;
 						count++;
 						n_of_current_frame++;
 						
@@ -275,7 +275,7 @@ class LosslessHybrid {
 							p->set_last_frame({planes[0],result1,result2});
 						}
 						cap >> frame;
-						cout << "Encoding Frame: "<< count << endl;
+						//cout << "Encoding Frame: "<< count << endl;
 						count++;
 						n_of_current_frame++;
 						
@@ -340,7 +340,7 @@ class LosslessHybrid {
 							p->set_last_frame({planes[0],result1,result2});
 						}
 						cap >> frame;
-						cout << "Encoding Frame: "<< count << endl;
+						//cout << "Encoding Frame: "<< count << endl;
 						count++;
 						n_of_current_frame++;
 						
@@ -405,7 +405,7 @@ class LosslessHybrid {
 							p->set_last_frame({planes[0],result1,result2});
 						}
 						cap >> frame;
-						cout << "Encoding Frame: "<< count << endl;
+						//cout << "Encoding Frame: "<< count << endl;
 						count++;
 						n_of_current_frame++;
 						
@@ -470,7 +470,7 @@ class LosslessHybrid {
 							p->set_last_frame({planes[0],result1,result2});
 						}
 						cap >> frame;
-						cout << "Encoding Frame: "<< count << endl;
+						//cout << "Encoding Frame: "<< count << endl;
 						count++;
 						n_of_current_frame++;
 						
@@ -535,7 +535,7 @@ class LosslessHybrid {
 							p->set_last_frame({planes[0],result1,result2});
 						}
 						cap >> frame;
-						cout << "Encoding Frame: "<< count << endl;
+						//cout << "Encoding Frame: "<< count << endl;
 						count++;
 						n_of_current_frame++;
 						
@@ -600,7 +600,7 @@ class LosslessHybrid {
 							p->set_last_frame({planes[0],result1,result2});
 						}
 						cap >> frame;
-						cout << "Encoding Frame: "<< count << endl;
+						//cout << "Encoding Frame: "<< count << endl;
 						count++;
 						n_of_current_frame++;
 						
@@ -622,9 +622,9 @@ class LosslessHybrid {
 	   		int fra = p->get_frames();
 	   		int mode = p->get_type();
 	   		int tipo = p->get_VideoType();
-	   		cout << mode << endl;
-	   		cout << tipo << endl;
-	   		int periodo = 5;
+	   		//cout << mode << endl;
+	   		//cout << tipo << endl;
+	   		int periodo = p->get_period();
 	   		int count = 0;
 			switch (mode){
 	   			case 0:

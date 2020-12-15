@@ -25,7 +25,9 @@ int main( int argc, char** argv )
 {	
 	//Code used to create the results.txt document where we encoded the same video in 420 with m's being (2,3,4), all the predictors, 4 diferente block sizes (2,4,8,16) and 2 diferent search spaces (5,10) and 2 diferent periods (5,7)
 	int ms[3] = {2,3,4};
-	int block_sizes[4] = {2,4,8,16};
+	int mini = 10000;
+	string minimo="";
+	int block_sizes[3] = {2,4,8};
 	int search_spaces[2] = {5,10};
 	int periods[2] = {5,7};
 	for (int m:ms){
@@ -39,16 +41,23 @@ int main( int argc, char** argv )
    						in_file.seekg(0, ios::end);
    						int file_size = in_file.tellg();
    						double ent = file_size*8/(176*144*300*1.5);
+   						if (ent < mini){
+   							mini = ent;
+   							minimo = "Encoded420|M="+to_string(m)+"|BS="+to_string(bs)+"|SS="+to_string(ss)+"|PRED="+to_string(i+1)+"|P="+to_string(p)+".bin";
+   						}
    						cout<<"M="+to_string(m)+"|BS="+to_string(bs)+"|SS="+to_string(ss)+"|PRED="+to_string(i+1)+"|P="+to_string(p)<<" "<< ent<<" "<<"Bits per pixel\t\t";
    						in_file.close();
-   						string file = "Encoded420|M="+to_string(m)+"|BS="+to_string(bs)+"|SS="+to_string(ss)+"|PRED="+to_string(i+1)+"|P="+to_string(p)+".bin";
-   						remove("hm");
+   						const char* file = ("Encoded420|M="+to_string(m)+"|BS="+to_string(bs)+"|SS="+to_string(ss)+"|PRED="+to_string(i+1)+"|P="+to_string(p)+".bin").c_str();
+   						if (remove(("Encoded420|M="+to_string(m)+"|BS="+to_string(bs)+"|SS="+to_string(ss)+"|PRED="+to_string(i+1)+"|P="+to_string(p)+".bin").c_str()) != 0){
+   							cout << "Erro " <<endl;
+   						}
 					}
-					cout << "\n";
+					cout << endl;
 				}
 			}
 		}
 	}
+	cout << "Minimo: " << minimo << " | " << mini << "bpp" << endl;
 	return 0;
 }
 
