@@ -1,0 +1,16 @@
+Resultados para 3 niveis de quantização (1,2,3)
+
+Outros parametros:
+    
+    Block Size: 8
+    Search Space: 10
+    Tipo do Video: 2 (aka 4:2:0)
+    Tipo do Preditor: JPEG-LS
+    M do Codigo de Golomb: 2
+    Periodo: 7
+
+Bits por pixel por quantização:
+    
+    1 : 3,25 bpp
+    2 : 3,15 bpp
+    3 : 3,12 bpp

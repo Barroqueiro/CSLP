@@ -1,0 +1,30 @@
+Teste:
+	Coisas da linguagem c++
+	Parte do projeto
+	Perguntas sobre cade linguagem
+
+Erros:
+Intra:
+	Estimado = ..
+	Real = ...
+	Erro = Real - Estimado
+	
+	erro2 = erro >> num
+	
+	golombEnc(erro2)
+	
+	erro >>= nbits
+	
+	real = Estimado + erro
+	
+	putPixel(real)
+
+Inter:
+	bloco_best = ...
+	bloco_atual = ...
+	bloco_erro = bloco_best - bloco_atual
+	// Shift a todos os elementos do bloco ( igual ao shift acima )
+	// Encode golomb
+	// shift ao contrário do que se fez antes
+	// Calcular o bloco atua (bloco_erro+bloco_best)
+	// put_bloco(b_atual acima calculado)
